@@ -5,7 +5,8 @@ namespace Hospital.Contexts
 {
     public class HospitalDBContext : DbContext
     {
-
+        public HospitalDBContext(DbContextOptions<HospitalDBContext> options): base(options) { }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // sever name : AHMED-EHAB , database name : Hospital , integrated security : true, server certificate : true, windows authentication : true, authentication : windows

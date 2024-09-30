@@ -135,3 +135,4 @@ E:\projects\Hospital\Hospital\obj\Debug\net8.0\refint\Hospital.dll
 E:\projects\Hospital\Hospital\obj\Debug\net8.0\Hospital.pdb
 E:\projects\Hospital\Hospital\obj\Debug\net8.0\Hospital.genruntimeconfig.cache
 E:\projects\Hospital\Hospital\obj\Debug\net8.0\ref\Hospital.dll
+E:\projects\Hospital\Hospital\obj\Debug\net8.0\Hospital.sourcelink.json

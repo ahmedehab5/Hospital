@@ -25,7 +25,7 @@ namespace Hospital.Models
         public Specialization Specialization { get; set; }
 
         public float Salary { get; set; }
-        public List<Patient> Patients { get; set; }
 
+        public List<Appointment> Appointments { get; set; }
     }
 }

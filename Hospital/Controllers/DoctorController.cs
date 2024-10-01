@@ -62,8 +62,9 @@ namespace Hospital.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,Name,Age,Phone,Gender,Password,Email,Image")] Doctor doctor)
+        public async Task<IActionResult> Create([Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,Name,Age,Phone,Gender,Password,Email,Image")] Doctor doctor,[Bind("ImageData")] string ImageData = null)
         {
+            doctor.Image = ImageData != null ? ImageData.Split(',').Select(byte.Parse).ToArray():null;
             //if (ModelState.IsValid)
             {
                 _context.Add(doctor);
@@ -83,11 +84,16 @@ namespace Hospital.Controllers
             }
 
             var doctor = await _context.Doctors.FindAsync(id);
+            var daysList = Enum.GetValues(typeof(WeekDays))
+                        .Cast<WeekDays>()
+                        .Select(d => new { Id = (int)d, Name = d.ToString() })
+                        .ToList();
+            ViewData["WeekDays"] = daysList; // Pass the list of days directly
             if (doctor == null)
             {
                 return NotFound();
             }
-            ViewData["SpecializationId"] = new SelectList(_context.Specializations, "Id", "Id", doctor.SpecializationId);
+            ViewData["SpecializationId"] = new SelectList(_context.Specializations, "Id", "Name", doctor.SpecializationId);
             return View(doctor);
         }
 
@@ -102,8 +108,9 @@ namespace Hospital.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            string? ImageData = Request.Form["ImageData"];
+            doctor.Image = ImageData != "" ? ImageData.Split(',').Select(byte.Parse).ToArray() : null;
+            //if (ModelState.IsValid)
             {
                 try
                 {
@@ -124,6 +131,11 @@ namespace Hospital.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["SpecializationId"] = new SelectList(_context.Specializations, "Id", "Id", doctor.SpecializationId);
+            var daysList = Enum.GetValues(typeof(WeekDays))
+                        .Cast<WeekDays>()
+                        .Select(d => new { Id = (int)d, Name = d.ToString() })
+                        .ToList();
+            ViewData["WeekDays"] = daysList; // Pass the list of days directly
             return View(doctor);
         }
 

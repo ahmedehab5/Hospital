@@ -65,7 +65,7 @@
                 @Html.DisplayFor(modelItem => item.EndTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Specialization.Id)
+                @Html.DisplayFor(modelItem => item.Specialization.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Salary)
@@ -89,7 +89,11 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                @{
+                    string imageSrc = item.Image == null ? "/images/Doctor.png" : $"data:image/jpeg;base64,{Convert.ToBase64String(item.Image)}";
+                    //tag that has the image with max width 50px
+                }
+                <img class="img-thumbnail" style="max-width : 100px" src=@imageSrc alt="Not Assigned" />
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

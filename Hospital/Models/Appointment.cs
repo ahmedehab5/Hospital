@@ -6,17 +6,24 @@ namespace Hospital.Models
     public class Appointment
     {
         public int Id { get; set; }
-        public int DoctorId { get; set; }
 
-        [ForeignKey("DoctorId")]
+
+
+		[ForeignKey("Doctor")]
+		public string DoctorId { get; set; }        
         public Doctor Doctor { get; set; }
+
+
+
+		[ForeignKey("Patient")]
+		public string PatientId { get; set; }      
+        public Patient Patient { get; set; }
+
+
 
         [Required]
         public string Specialization { get; set; }
-        public int PatientId { get; set; }
 
-        [ForeignKey("PatientId")]
-        public Patient Patient { get; set; }
 
         public string Diagnosis { get; set; }   //تشخيص
         public string Treatment { get; set; }

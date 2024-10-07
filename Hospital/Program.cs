@@ -1,5 +1,6 @@
 using Hospital.Contexts;
 using Hospital.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<HospitalDBContext>(options =>
 
 
 builder.Services.AddIdentity<Person, IdentityRole>()
-
+////server-side validations
 //(Options =>
 //{
 //    Options.Password.RequireNonAlphanumeric = true;
@@ -22,9 +23,16 @@ builder.Services.AddIdentity<Person, IdentityRole>()
 //    Options.Password.RequireLowercase = true;
 //    Options.Password.RequireUppercase = true;
 //})
-                .AddEntityFrameworkStores<HospitalDBContext>();
+                .AddEntityFrameworkStores<HospitalDBContext>()
+                .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication();
+
+//encryption schema
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(Options =>
+{
+    Options.LoginPath = "Account/Login"; //if token gets expired, return to login
+    Options.AccessDeniedPath = "Home/Error"; //if you tried to access an action that you are not authorized to
+});
 
 
 
@@ -39,10 +47,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

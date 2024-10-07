@@ -1,4 +1,5 @@
 ﻿using Hospital.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hospital.Models
 {

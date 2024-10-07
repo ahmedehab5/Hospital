@@ -8,7 +8,7 @@
 }
 
 
-<div asp-validation-summary="All" class="text-danger"></div>
+<div asp-validation-summary="All" style="color:red" class="text-danger"></div>
 @*display all arrors if register doesn't succeed*@
 
 
@@ -16,20 +16,20 @@
 	<div class="agileits-top">
 
 
-		<form asp-action="Register">
+		<form asp-action="Register" asp-controller="Account" method="post">
 			<input type="text" asp-for="FName" placeholder="First Name" required="">
-			<span asp-validation-for="FName" class="text-danger"></span>
+			<span asp-validation-for="FName" style="color:red"></span>
 			<br/>
-
+			@*asp-validation-for: check validations defined at RegisterViewModel*@
 
 			<input type="text" asp-for="LName" placeholder="Last Name" required="">
-			<span asp-validation-for="LName" class="text-danger"></span>
+			<span asp-validation-for="LName" style="color:red"></span>
 			<br/>
 
 
 			
 			<input type="text" asp-for="Age" placeholder="Age" required=""/>
-			<span asp-validation-for="Age" class="text-danger"></span>
+			<span asp-validation-for="Age" style="color:red"></span>
 			<br />
 			
 
@@ -38,29 +38,29 @@
 			<label for="Gender">Gender:</label>
 			<select type="text" asp-for="Gender" asp-items="Html.GetEnumSelectList<Hospital.Models.Gender>()" required>
 			</select>
-			<span asp-validation-for="Gender" class="text-danger"></span>
+			<span asp-validation-for="Gender" style="color:red"></span>
 			<br />
 			<br />
 
 
 			<input type="text" asp-for="PhoneNumber" placeholder="Phone Number" required="">
-			<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+			<span asp-validation-for="PhoneNumber" style="color:red"></span>
 			<br />
 
 
 			<input type="email" asp-for="Email" placeholder="Email" required="">
-			<span asp-validation-for="Email" class="text-danger"></span>
+			<span asp-validation-for="Email" style="color:red"></span>
 			<br />
 
 
-
+			@*type=Passowrd: to be hidden*@
 			<input type="password" asp-for="Password" placeholder="Password" required="">
-			<span asp-validation-for="Password" class="text-danger"></span>
+			<span asp-validation-for="Password" style="color:red"></span>
 			<br />
 
 
 			<input type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" required="">
-			<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+			<span asp-validation-for="ConfirmPassword" style="color:red"></span>
 			<br />
 
 
@@ -75,7 +75,7 @@
 
 
 
-			<input type="submit" value="SIGNUP">
+			<input type="submit" value="REGISTER">
 		</form>
 		<p>Do you have an Account? <a asp-action="Login"> Login Now</a></p>
 	

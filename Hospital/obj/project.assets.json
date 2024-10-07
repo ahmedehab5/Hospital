@@ -7891,24 +7891,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nourt\\.nuget\\packages\\": {},
-    "D:\\Visual Studio tools, SDKs\\NuGetPackages": {}
+    "C:\\Users\\ahmed\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\patient2\\Hospital\\Hospital.csproj",
+      "projectUniqueName": "E:\\projects\\Hospital\\Hospital\\Hospital.csproj",
       "projectName": "Hospital",
-      "projectPath": "D:\\patient2\\Hospital\\Hospital.csproj",
-      "packagesPath": "C:\\Users\\nourt\\.nuget\\packages\\",
-      "outputPath": "D:\\patient2\\Hospital\\obj\\",
+      "projectPath": "E:\\projects\\Hospital\\Hospital\\Hospital.csproj",
+      "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
+      "outputPath": "E:\\projects\\Hospital\\Hospital\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "D:\\Visual Studio tools, SDKs\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\nourt\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\ahmed\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7916,7 +7911,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -7978,7 +7972,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

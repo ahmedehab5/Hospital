@@ -27,7 +27,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Doctor/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
             {
@@ -102,7 +102,7 @@ namespace Hospital.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,Name,Age,Phone,Gender,Password,Email,Image")] Doctor doctor)
+        public async Task<IActionResult> Edit(string id, [Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,Name,Age,Phone,Gender,Password,Email,Image")] Doctor doctor)
         {
             if (id != doctor.Id)
             {
@@ -140,7 +140,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Doctor/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
             {
@@ -173,7 +173,7 @@ namespace Hospital.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DoctorExists(int id)
+        private bool DoctorExists(string id)
         {
             return _context.Doctors.Any(e => e.Id == id);
         }

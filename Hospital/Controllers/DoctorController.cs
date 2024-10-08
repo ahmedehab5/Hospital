@@ -62,7 +62,7 @@ namespace Hospital.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,Name,Age,Phone,Gender,Password,Email,Image")] Doctor doctor,[Bind("ImageData")] string ImageData = null)
+        public async Task<IActionResult> Create([Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,Phone,Gender,PasswordHash,Email,Image")] Doctor doctor,[Bind("ImageData")] string ImageData = null)
         {
             doctor.Image = ImageData != null ? ImageData.Split(',').Select(byte.Parse).ToArray():null;
             //if (ModelState.IsValid)
@@ -76,7 +76,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Doctor/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
             {
@@ -102,7 +102,7 @@ namespace Hospital.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,Name,Age,Phone,Gender,Password,Email,Image")] Doctor doctor)
+        public async Task<IActionResult> Edit(string id, [Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,Phone,Gender,PasswordHash,Email,Image")] Doctor doctor)
         {
             if (id != doctor.Id)
             {
@@ -114,7 +114,9 @@ namespace Hospital.Controllers
             {
                 try
                 {
+                    // solve the problem of updating that happens because of concurrency
                     _context.Update(doctor);
+                    _context.Entry(doctor).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

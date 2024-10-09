@@ -62,7 +62,7 @@ namespace Hospital.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,Phone,Gender,PasswordHash,Email,Image")] Doctor doctor,[Bind("ImageData")] string ImageData = null)
+        public async Task<IActionResult> Create([Bind("UserName,WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,Phone,Gender,PasswordHash,Email,Image")] Doctor doctor,[Bind("ImageData")] string ImageData = null)
         {
             doctor.Image = ImageData != null ? ImageData.Split(',').Select(byte.Parse).ToArray():null;
             //if (ModelState.IsValid)
@@ -102,7 +102,7 @@ namespace Hospital.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,Phone,Gender,PasswordHash,Email,Image")] Doctor doctor)
+        public async Task<IActionResult> Edit(string id, [Bind("UserName,WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,Phone,Gender,PasswordHash,Email,Image")] Doctor doctor)
         {
             if (id != doctor.Id)
             {

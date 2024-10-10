@@ -1,0 +1,49 @@
+﻿@model IEnumerable<dynamic> // Assuming 'dynamic' as the model type based on your example
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <!-- You could add a dropdown or select option here to choose a specific patient -->
+    <a asp-action="Create" asp-route-patientId="3730514f-9b6b-48a5-8519-60868f4eb776">Create New Appointment</a>
+
+</p>
+<p>
+    <a asp-action="HistoryForPatient" asp-route-patientId="3730514f-9b6b-48a5-8519-60868f4eb776">View Patient History</a>
+</p>
+<p>  <a asp-action="HistoryForDoctor" asp-route-doctorId="D001">View Doctor History</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Doctor</th>
+            <th>Patient</th>
+            <th>Specialization</th>
+            <th>Diagnosis</th>
+            <th>Treatment</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DoctorFullName</td>
+                <td>@item.PatientFullName</td>
+                <td>@item.Specialization</td>
+                <td>@item.Diagnosis</td>
+                <td>@item.Treatment</td>
+                <td>@item.Date.ToString("MM/dd/yyyy")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

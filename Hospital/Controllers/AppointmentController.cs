@@ -19,6 +19,7 @@ namespace Hospital.Controllers
             _context = context;
         }
 
+        #region Get All Appointments
         // GET: Appointment
         public async Task<IActionResult> Index()
         {
@@ -39,8 +40,9 @@ namespace Hospital.Controllers
 
             return View(appointments);
         }
+        #endregion
 
-
+        #region DetailsForAppointment
         // GET: Appointment/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,7 +62,9 @@ namespace Hospital.Controllers
 
             return View(appointment);
         }
+        #endregion
 
+        #region HistoryForPatient
         // GET: Appointment/History/Patient/{patientId}
         [HttpGet]
         public IActionResult HistoryForPatient(string patientId)
@@ -88,8 +92,9 @@ namespace Hospital.Controllers
 
             return View(appointments);
         }
+        #endregion
 
-
+        #region HistoryForDoctor
         // GET: Appointment/History/Doctor/{doctorId}
         [HttpGet]
         public IActionResult HistoryForDoctor(string doctorId)
@@ -117,8 +122,9 @@ namespace Hospital.Controllers
 
             return View(appointments);
         }
+        #endregion
 
-
+        #region MakeAppointment(PatientSide)
         // GET: Appointment/Create
         public IActionResult Create(String PatientId)
         {
@@ -145,7 +151,6 @@ namespace Hospital.Controllers
             ViewData["PatientId"] = new SelectList(patients, "Id", "FullName"); // Use FullName
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -208,7 +213,9 @@ namespace Hospital.Controllers
 
             return RedirectToAction(nameof(Index)); // Redirect to Index after saving
         }
+        #endregion
 
+        #region Treatment&Diagnosis(DoctorSide)
         // GET: Appointment/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -217,12 +224,14 @@ namespace Hospital.Controllers
                 return NotFound();
             }
 
-            var appointment = await _context.Appointments.FindAsync(id);
+            var appointment = await _context.Appointments
+                .Include(a => a.Doctor)
+                .Include(a => a.Patient)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (appointment == null)
             {
                 return NotFound();
             }
-
             // Populate Doctor and Patient select lists with full names
             var doctors = _context.Doctors.Select(d => new
             {
@@ -288,7 +297,13 @@ namespace Hospital.Controllers
 
             return View(appointment);
         }
+        private bool AppointmentExists(int id)
+        {
+            return _context.Appointments.Any(e => e.Id == id);
+        }
+        #endregion
 
+        #region CancelAppointment
         // GET: Appointment/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -323,10 +338,7 @@ namespace Hospital.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        private bool AppointmentExists(int id)
-        {
-            return _context.Appointments.Any(e => e.Id == id);
-        }
+        #endregion
+       
     }
 }

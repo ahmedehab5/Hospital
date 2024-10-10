@@ -22,8 +22,6 @@
             <th>Doctor</th>
             <th>Patient</th>
             <th>Specialization</th>
-            <th>Diagnosis</th>
-            <th>Treatment</th>
             <th>Date</th>
             <th></th>
         </tr>
@@ -35,8 +33,6 @@
                 <td>@item.DoctorFullName</td>
                 <td>@item.PatientFullName</td>
                 <td>@item.Specialization</td>
-                <td>@item.Diagnosis</td>
-                <td>@item.Treatment</td>
                 <td>@item.Date.ToString("MM/dd/yyyy")</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -1,0 +1,102 @@
+﻿
+@model Patient
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+<br/>
+
+@* <script>
+    function calculateAge() {
+        var dob = document.getElementById('dob').value;
+        if (dob) {
+            var today = new Date();
+            var birthDate = new Date(dob);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var monthDiff = today.getMonth() - birthDate.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            // Set the calculated age in the Age field
+            document.getElementById('age').value = age;
+        }
+    }
+</script> *@
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+
+
+
+        <label class="col-form-table" asp-for="FirstName">First Name </label>
+        <input class="form-control" asp-for="FirstName" required="">
+        <span asp-validation-for="FirstName" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="LastName">Last Name </label>
+        <input class="form-control" asp-for="LastName" required="">
+        <span asp-validation-for="LastName" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="Email">Email </label>
+        <input class="form-control" type="email" asp-for="Email" required="">
+        <span asp-validation-for="Email" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="PasswordHash">password </label>
+        <input class="form-control" type="password" asp-for="PasswordHash" required="">
+        <span asp-validation-for="PasswordHash" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="PhoneNumber">Phone Number </label>
+        <input class="form-control" title="Please enter exactly 11 digits." maxlength="11" pattern="^\d{11}$" asp-for="PhoneNumber" required>
+        <span asp-validation-for="PhoneNumber" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="Gender">Gender </label>
+        <select class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<Hospital.Models.Gender>()" required> </select>
+        <span asp-validation-for="Gender" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="Age">Age </label>
+        <input class="form-control" asp-for="Age" required="">
+        <span asp-validation-for="Age" style="color:red"></span>
+        <br />
+
+
+        
+       @*  <label for="dob" class="control-label" asp-for="DOB">Date of Birth</label>
+        <input type="date" id="dob" class="form-control" asp-for="DOB" onchange="calculateAge()" required />
+        <span style="color:red"></span>
+        <br/>
+
+        
+        <label asp-for="Age" class="control-label">Age</label>
+        <input asp-for="Age" class="form-control" type="number" id="age" readonly required />
+        <span asp-validation-for="Age" class="text-danger"></span>
+         <br/> *@
+
+
+
+        <input type="submit" value="Create" class="btn btn-primary"/>
+        <a asp-action="Index" class="btn btn-light">Back to list</a>
+
+
+    </div>
+</form>
+
+@section ValidationScriptSection
+{
+    <partial name="_ValidationScriptsPartial" />
+}

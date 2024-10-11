@@ -1,0 +1,109 @@
+﻿@model Patient
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1> Patient @Model.UserName Detials</h1>
+
+
+
+
+    <div class="form-group">
+
+    <label class="col-form-table" asp-for="Id">Id </label>
+    <input readonly class="form-control" asp-for="Id" required="">
+    <br />
+
+
+        <label class="col-form-table" asp-for="FirstName">First Name </label>
+        <input readonly class="form-control" asp-for="FirstName" required="">
+        <br />
+
+
+        <label class="col-form-table" asp-for="LastName">Last Name </label>
+        <input readonly class="form-control" asp-for="LastName" required="">
+        <br />
+
+
+        <label class="col-form-table" asp-for="Email">Email </label>
+        <input readonly class="form-control" type="email" asp-for="Email" required="">
+        <br />
+
+
+        <label class="col-form-table" asp-for="PhoneNumber">Phone Number </label>
+        <input readonly class="form-control" title="Please enter exactly 11 digits." maxlength="11" pattern="^\d{11}$" asp-for="PhoneNumber" required>
+        <br />
+
+
+        <label class="col-form-table" asp-for="Gender">Gender </label>
+        <select disabled class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<Hospital.Models.Gender>()" required> </select>
+        <br />
+
+
+
+        <div class="form-group">
+            <label asp-for="Age" class="control-label">Age</label>
+            <input readonly asp-for="Age" class="form-control" type="number" id="age" readonly required />
+        </div>
+        <br />
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+    <a asp-action="Index" class="btn btn-light">Back to list</a>
+
+
+    </div>
+
+
+@* <div>
+    <h4>Doctor</h4>
+    <hr />
+    <dl class="row">
+       
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+       
+       
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div> *@
+
+  

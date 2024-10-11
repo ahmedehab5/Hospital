@@ -1,0 +1,29 @@
+﻿@using Hospital.ViewModels
+@model RoleViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit @Model.RoleName Role</h1>
+
+<div asp-validation-summary="All" style="color:red"></div>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+
+
+
+        <label class="col-form-table" asp-for="RoleName">Role Name </label>
+        <input class="form-control" asp-for="RoleName" required="">
+        <span asp-validation-for="RoleName" style="color:red"></span>
+        <br />
+
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-light">Back to list</a>
+
+
+    </div>
+</form>
+

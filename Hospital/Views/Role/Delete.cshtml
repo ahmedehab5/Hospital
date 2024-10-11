@@ -1,0 +1,34 @@
+﻿@using Hospital.ViewModels
+@model RoleViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Are you sure you want to delete this Role?</h1>
+
+<div asp-validation-summary="All" style="color:red"></div>
+
+
+<form asp-action="Delete">
+
+    <div class="form-group">
+
+        <label class="col-form-table" asp-for="Id">Id </label>
+        <input readonly class="form-control" asp-for="Id" required="">
+        <br />
+
+
+        <label class="col-form-table" asp-for="RoleName">Role Name </label>
+        <input readonly class="form-control" asp-for="RoleName" required="">
+        <br />
+
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-light">Cancel</a>
+
+
+</form>
+
+
+

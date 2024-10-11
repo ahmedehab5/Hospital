@@ -1,0 +1,68 @@
+﻿@using Hospital.ViewModels
+@model AdminViewModel
+
+@{
+    ViewData["Title"] = "CreateAdmin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h1>Create New Admin</h1>
+<form asp-action="Create" method="post">
+    <div class="form-group">
+
+
+
+
+
+        <label class="col-form-table" asp-for="Email">Email </label>
+        <input class="form-control" asp-for="Email" required="">
+        <span asp-validation-for="Email" style="color:red"></span>
+        <br />
+
+        <label class="col-form-table" asp-for="Password">Password </label>
+        <input class="form-control" asp-for="Password" required="">
+        <span asp-validation-for="Password" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="FName">First Name </label>
+        <input class="form-control" asp-for="FName" required="">
+        <span asp-validation-for="FName" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="LName">Last Name </label>
+        <input class="form-control" asp-for="LName" required="">
+        <span asp-validation-for="LName" style="color:red"></span>
+        <br />
+
+
+
+        <label class="col-form-table" asp-for="PhoneNumber">Phone Number </label>
+        <input class="form-control" title="Please enter exactly 11 digits." maxlength="11" pattern="^\d{11}$" asp-for="PhoneNumber" required>
+        <span asp-validation-for="PhoneNumber" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="Gender">Gender </label>
+        <select class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<Hospital.Models.Gender>()" required> </select>
+        <span asp-validation-for="Gender" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="Age">Age </label>
+        <input class="form-control" asp-for="Age" required="">
+        <span asp-validation-for="Age" style="color:red"></span>
+        <br />
+
+
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-light">Back to list</a>
+
+
+    </div>
+</form>
+
+

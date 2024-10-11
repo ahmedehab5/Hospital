@@ -10,7 +10,7 @@ namespace Hospital.Models
         Male,
         Female
     }
-    public class Person:IdentityUser
+    public abstract class Person:IdentityUser
     {
 
         public string FirstName { get; set; }
@@ -19,6 +19,6 @@ namespace Hospital.Models
         public Gender Gender { get; set; }
         public byte[]? Image { get; set; }
 
-        public bool IsAgree { get; set; }
+        public bool Agree { get; set; }
     }
 }

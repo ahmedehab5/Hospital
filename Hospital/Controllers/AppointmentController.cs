@@ -125,31 +125,48 @@ namespace Hospital.Controllers
         #endregion
 
         #region MakeAppointment(PatientSide)
-        // GET: Appointment/Create
-        public IActionResult Create(String PatientId)
+        public IActionResult Create(string PatientId)
         {
-            // Populate Doctor full names
-            var doctors = _context.Doctors
-                .Select(d => new
+            // Fetch specializations
+            var specializations = _context.Specializations
+                .Select(s => new
                 {
-                    Id = d.Id,
-                    FullName = d.FirstName + " " + d.LastName  // Combine FirstName and LastName
+                    Id = s.Id,
+                    Name = s.Name
                 })
                 .ToList();
 
-            ViewData["DoctorId"] = new SelectList(doctors, "Id", "FullName"); // Use FullName
+            ViewData["Specialization"] = new SelectList(specializations, "Name", "Name");
 
             // Populate Patient full names
             var patients = _context.Patients
                 .Select(p => new
                 {
                     Id = p.Id,
-                    FullName = p.FirstName + " " + p.LastName  // Combine FirstName and LastName
+                    FullName = p.FirstName + " " + p.LastName
                 })
                 .ToList();
 
-            ViewData["PatientId"] = new SelectList(patients, "Id", "FullName"); // Use FullName
+            // Set the PatientId in the dropdown and select the patient passed via PatientId
+            ViewData["PatientId"] = new SelectList(patients, "Id", "FullName", PatientId);
+
             return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetDoctorsBySpecialization(string specialization)
+        {
+            // Fetch doctors who belong to the selected specialization
+            var doctors = _context.Doctors
+                .Where(d => d.Specialization.Name == specialization) // Filter by specialization name
+                .Select(d => new
+                {
+                    Id = d.Id,
+                    FullName = d.FirstName + " " + d.LastName
+                })
+                .ToList();
+
+            return Json(doctors);
         }
 
         [HttpPost]
@@ -213,6 +230,7 @@ namespace Hospital.Controllers
 
             return RedirectToAction(nameof(Index)); // Redirect to Index after saving
         }
+
         #endregion
 
         #region Treatment&Diagnosis(DoctorSide)

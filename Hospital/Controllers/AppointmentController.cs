@@ -156,18 +156,20 @@ namespace Hospital.Controllers
         [HttpGet]
         public JsonResult GetDoctorsBySpecialization(string specialization)
         {
-            // Fetch doctors who belong to the selected specialization
             var doctors = _context.Doctors
-                .Where(d => d.Specialization.Name == specialization) // Filter by specialization name
+                .Where(d => d.Specialization.Name == specialization)
                 .Select(d => new
                 {
                     Id = d.Id,
-                    FullName = d.FirstName + " " + d.LastName
+                    FullName = d.FirstName + " " + d.LastName,
+                    WorkingDays = d.WorkingDays.ToString() // Assuming it returns a string format like "Saturday, Sunday"
                 })
                 .ToList();
 
             return Json(doctors);
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

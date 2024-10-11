@@ -11,7 +11,6 @@
 
 <div class="row">
     <div class="col-md-4">
-        <!-- If ModelState is invalid, show errors (for debugging purposes) -->
         @if (!ViewData.ModelState.IsValid)
         {
             <div class="alert alert-danger">
@@ -43,25 +42,26 @@
                 <label asp-for="DoctorId" class="control-label"></label>
                 <select asp-for="DoctorId" id="DoctorId" class="form-control">
                     <option value="">-- Select Doctor --</option>
-                    <!-- Doctors will be populated dynamically here -->
                 </select>
                 <span asp-validation-for="DoctorId" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <label class="control-label">Working Days</label>
+                <select id="WorkingDay" class="form-control" disabled>
+                    <option value="">-- Select Working Day --</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+                <span class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <label asp-for="PatientId" class="control-label"></label>
-
-                <!-- Disabled select to show the patient name (read-only) -->
                 <select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId" disabled></select>
-
-                <!-- Hidden field to store and submit the PatientId -->
                 <input type="hidden" asp-for="PatientId" />
-
                 <span asp-validation-for="PatientId" class="text-danger"></span>
             </div>
 
-           
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" type="datetime-local" />
@@ -86,13 +86,13 @@
             $('#Specialization').change(function () {
                 var specialization = $(this).val();
 
-                // Clear the doctor dropdown
-                $('#DoctorId').empty();
-                $('#DoctorId').append('<option value="">-- Select Doctor --</option>');
+                // Clear the doctor dropdown and working day dropdown
+                $('#DoctorId').empty().append('<option value="">-- Select Doctor --</option>');
+                $('#WorkingDay').empty().append('<option value="">-- Select Working Day --</option>').prop('disabled', true);
 
                 if (specialization) {
                     $.ajax({
-                        url: '@Url.Action("GetDoctorsBySpecialization")', // Controller action to fetch doctors
+                        url: '@Url.Action("GetDoctorsBySpecialization")',
                         type: 'GET',
                         data: { specialization: specialization },
                         success: function (data) {
@@ -102,12 +102,65 @@
                                     text: doctor.fullName
                                 }));
                             });
+
+                            // When a doctor is selected, update the working days
+                            $('#DoctorId').change(function () {
+                                var selectedDoctor = data.find(d => d.id === $(this).val());
+                                $('#WorkingDay').empty().append('<option value="">-- Select Working Day --</option>').prop('disabled', false);
+
+                                if (selectedDoctor) {
+                                    // Add working days to the dropdown
+                                    var workingDays = selectedDoctor.workingDays.split(','); // Assuming WorkingDays are comma-separated
+                                    $.each(workingDays, function (i, day) {
+                                        $('#WorkingDay').append($('<option>', {
+                                            value: day.trim(),
+                                            text: day.trim()
+                                        }));
+                                    });
+                                } else {
+                                    $('#WorkingDay').prop('disabled', true); // Disable if no doctor is selected
+                                }
+                            });
                         }
                     });
                 }
             });
+
+            // Update the date when a working day is selected
+            $('#WorkingDay').change(function () {
+                var selectedDay = $(this).val();
+                if (selectedDay) {
+                    var today = new Date();
+                    var dayOfWeek = getDayIndex(selectedDay); // Get the index of the selected day
+                    var nextDate = getNextDate(today, dayOfWeek); // Calculate the next date for the selected day
+                    $('#Date').val(nextDate.toISOString().slice(0, 16)); // Update the date input
+                }
+            });
+
+            function getDayIndex(day) {
+                switch (day) {
+                    case 'Saturday': return 6;
+                    case 'Sunday': return 0;
+                    case 'Monday': return 1;
+                    case 'Tuesday': return 2;
+                    case 'Wednesday': return 3;
+                    case 'Thursday': return 4;
+                    case 'Friday': return 5;
+                    default: return -1;
+                }
+            }
+
+            function getNextDate(startDate, dayOfWeek) {
+                var resultDate = new Date(startDate);
+                var currentDay = resultDate.getDay();
+
+                // Calculate days until the next occurrence of the selected day
+                var daysUntilNext = (dayOfWeek + 7 - currentDay) % 7 || 7; // If today is the same day, select the next week
+
+                // Set the next date
+                resultDate.setDate(resultDate.getDate() + daysUntilNext);
+                return resultDate;
+            }
         });
     </script>
 }
-
-

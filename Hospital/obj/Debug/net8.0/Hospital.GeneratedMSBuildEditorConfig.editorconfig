@@ -17,119 +17,191 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Hospital
 build_property.RootNamespace = Hospital
-build_property.ProjectDir = C:\Users\mohab\source\repos\Hospital\Hospital\
+build_property.ProjectDir = C:\Users\mohab\Source\Repos\Hospital\Hospital\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\mohab\source\repos\Hospital\Hospital
+build_property.MSBuildProjectDirectory = C:\Users\mohab\Source\Repos\Hospital\Hospital
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Account/Login.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Account/CheckYourEmailInbox.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDaGVja1lvdXJFbWFpbEluYm94LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Account/ForgetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3JnZXRQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Account/Register.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Appointment/Create.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Account/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Admin/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Admin/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Admin/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Admin/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Appointment/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Appointment/Delete.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Appointment/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Appointment/Details.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Appointment/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Appointment/Edit.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Appointment/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Appointment/HistoryForDoctor.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Appointment/HistoryForDoctor.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcSGlzdG9yeUZvckRvY3Rvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Appointment/HistoryForPatient.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Appointment/HistoryForPatient.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcSGlzdG9yeUZvclBhdGllbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Appointment/Index.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Appointment/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Doctor/Create.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Doctor/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Doctor/Delete.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Doctor/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Doctor/Details.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Doctor/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Doctor/Edit.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Doctor/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Doctor/Index.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Doctor/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Home/Index.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Home/Privacy.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Shared/Error.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Patient/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Patient/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Patient/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Patient/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Patient/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Role/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Role/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Role/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Role/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Role/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Shared/_AuthLayout.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Shared/_AuthLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BdXRoTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Specialization/Create.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Specialization/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl6YXRpb25cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Specialization/Delete.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Specialization/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl6YXRpb25cRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Specialization/Details.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Specialization/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl6YXRpb25cRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Specialization/Edit.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Specialization/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl6YXRpb25cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Specialization/Index.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Specialization/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl6YXRpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/_ViewImports.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/_ViewStart.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mohab/source/repos/Hospital/Hospital/Views/Shared/_Layout.cshtml]
+[C:/Users/mohab/Source/Repos/Hospital/Hospital/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-j6i1r8qj4i

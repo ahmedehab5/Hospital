@@ -13,14 +13,7 @@ namespace Hospital.Contexts
 
 		}
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // sever name : AHMED-EHAB , database name : Hospital , integrated security : true, server certificate : true, windows authentication : true, authentication : windows
-            optionsBuilder.UseSqlServer("Server=.;Database=Hospitall;Integrated Security=True;TrustServerCertificate=True;MultipleActiveResultSets=True");
-
-            base.OnConfiguring(optionsBuilder);
-        }
-
+       
 
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Doctor> Doctors { get; set; }

@@ -1,0 +1,113 @@
+﻿@model Hospital.Models.Appointment
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Appointment</h1>
+
+<h4>Appointment Details</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <!-- If ModelState is invalid, show errors (for debugging purposes) -->
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                <h5>Model State Errors:</h5>
+                <ul>
+                    @foreach (var state in ViewData.ModelState)
+                    {
+                        foreach (var error in state.Value.Errors)
+                        {
+                            <li>Error in @state.Key: @error.ErrorMessage</li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Specialization" class="control-label"></label>
+                <select id="Specialization" asp-for="Specialization" class="form-control" asp-items="ViewBag.Specialization">
+                    <option value="">-- Select Specialization --</option>
+                </select>
+                <span asp-validation-for="Specialization" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DoctorId" class="control-label"></label>
+                <select asp-for="DoctorId" id="DoctorId" class="form-control">
+                    <option value="">-- Select Doctor --</option>
+                    <!-- Doctors will be populated dynamically here -->
+                </select>
+                <span asp-validation-for="DoctorId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="PatientId" class="control-label"></label>
+
+                <!-- Disabled select to show the patient name (read-only) -->
+                <select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId" disabled></select>
+
+                <!-- Hidden field to store and submit the PatientId -->
+                <input type="hidden" asp-for="PatientId" />
+
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+
+           
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" type="datetime-local" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Specialization').change(function () {
+                var specialization = $(this).val();
+
+                // Clear the doctor dropdown
+                $('#DoctorId').empty();
+                $('#DoctorId').append('<option value="">-- Select Doctor --</option>');
+
+                if (specialization) {
+                    $.ajax({
+                        url: '@Url.Action("GetDoctorsBySpecialization")', // Controller action to fetch doctors
+                        type: 'GET',
+                        data: { specialization: specialization },
+                        success: function (data) {
+                            $.each(data, function (i, doctor) {
+                                $('#DoctorId').append($('<option>', {
+                                    value: doctor.id,
+                                    text: doctor.fullName
+                                }));
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+

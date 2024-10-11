@@ -50,12 +50,12 @@ namespace Hospital.ViewModels
 
 
 		[Required(ErrorMessage = "Confirm Password is Required")]
-		[DataType(DataType.Password)]
+		//[DataType(DataType.Password)]
 		[Compare("Password", ErrorMessage = "Password doesn't match")]
 		public string ConfirmPassword { get; set; }
 
 
-		public bool IsAgree { get; set; }
+		public bool Agree { get; set; }
 		
 
 

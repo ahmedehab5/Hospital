@@ -2,15 +2,15 @@
 @model LoginViewModel
 
 @{
-    ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+	ViewData["Title"] = "Login";
+	Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
-<div asp-validation-summary="All" style="color:red" class="text-danger"></div>
-@*display all arrors if register doesn't succeed*@
 
 
 <div class="main-agileinfo">
 	<div class="agileits-top">
+		<div asp-validation-summary="All" style="color:red" class="text-danger"></div>
+		@*display all arrors if register doesn't succeed*@
 
 
 		<form asp-action="Login" asp-controller="Account" method="post">
@@ -28,7 +28,7 @@
 
 			<div class="wthree-text">
 				<label class="anim">
-					<input asp-for="RememberMe" class="checkbox" >
+					<input asp-for="RememberMe" class="checkbox">
 					<span>Remember Me</span>
 				</label>
 				<div class="clear"> </div>
@@ -38,7 +38,11 @@
 
 			<input type="submit" value="LOGIN">
 		</form>
+
 		<p>Don't have an Account? <a asp-action="Register"> Register Now</a></p>
+		<br />
+		<p><a asp-action="ForgetPassword">Forget Password?</a></p>
+
 
 	</div>
 </div>

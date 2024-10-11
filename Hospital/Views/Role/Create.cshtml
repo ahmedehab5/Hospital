@@ -1,0 +1,27 @@
+﻿@using Hospital.ViewModels
+@model RoleViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create New Role</h1>
+<form asp-action="Create" method="post">
+    <div class="form-group">
+
+
+
+        <label class="col-form-table" asp-for="RoleName">Role Name </label>
+        <input class="form-control" asp-for="RoleName" required="">
+        <span asp-validation-for="RoleName" style="color:red"></span>
+        <br />
+
+
+
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-light">Back to list</a>
+
+
+    </div>
+</form>
+

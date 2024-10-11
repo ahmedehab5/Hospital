@@ -3,35 +3,34 @@
 
 
 @{
-    ViewData["Title"] = "Register";
-    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+	ViewData["Title"] = "Register";
+	Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
 
-<div asp-validation-summary="All" style="color:red" class="text-danger"></div>
-@*display all arrors if register doesn't succeed*@
 
 
 <div class="main-agileinfo">
 	<div class="agileits-top">
+		<div asp-validation-summary="All" style="color:red" class="text-danger"></div>
 
-
+		
 		<form asp-action="Register" asp-controller="Account" method="post">
 			<input type="text" asp-for="FName" placeholder="First Name" required="">
 			<span asp-validation-for="FName" style="color:red"></span>
-			<br/>
+			<br />
 			@*asp-validation-for: check validations defined at RegisterViewModel*@
 
 			<input type="text" asp-for="LName" placeholder="Last Name" required="">
 			<span asp-validation-for="LName" style="color:red"></span>
-			<br/>
+			<br />
 
 
-			
-			<input type="text" asp-for="Age" placeholder="Age" required=""/>
+
+			<input type="text" asp-for="Age" placeholder="Age" required="" />
 			<span asp-validation-for="Age" style="color:red"></span>
 			<br />
-			
+
 
 
 
@@ -64,10 +63,10 @@
 			<br />
 
 
-			
+
 			<div class="wthree-text">
 				<label class="anim">
-					<input asp-for="IsAgree" class="checkbox" required="">
+					<input asp-for="Agree" class="checkbox" required="">
 					<span>I Agree To The Terms & Conditions</span>
 				</label>
 				<div class="clear"> </div>
@@ -78,13 +77,13 @@
 			<input type="submit" value="REGISTER">
 		</form>
 		<p>Do you have an Account? <a asp-action="Login"> Login Now</a></p>
-	
+
 	</div>
 </div>
 
 @section ValidationScriptSection
 {
-	<partial name="_ValidationScriptsPartial"/>
+	<partial name="_ValidationScriptsPartial" />
 }
 @* render the jquery script defined in the _validationScriptPartial *@
 @* allow you to apply the client-side validations you made in the RegisterViewModel,, that you used here in the span *@

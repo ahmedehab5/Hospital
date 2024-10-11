@@ -2,7 +2,7 @@
 {
     public class Patient : Person
     {
-        public List<Appointment> Appointments { get; set; }
+        //public List<Appointment> Appointments { get; set; }
 
     }
 }

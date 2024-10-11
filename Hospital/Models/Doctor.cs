@@ -26,6 +26,6 @@ namespace Hospital.Models
 
         public float Salary { get; set; }
 
-        public List<Appointment> Appointments { get; set; }
+        //public List<Appointment> Appointments { get; set; }
     }
 }

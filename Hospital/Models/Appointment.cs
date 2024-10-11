@@ -9,14 +9,14 @@ namespace Hospital.Models
 
 
 
-		[ForeignKey("Doctor")]
-		public string DoctorId { get; set; }        
+        [ForeignKey("Doctor")]
+        public string DoctorId { get; set; }
         public Doctor Doctor { get; set; }
 
 
 
-		[ForeignKey("Patient")]
-		public string PatientId { get; set; }      
+        [ForeignKey("Patient")]
+        public string PatientId { get; set; }
         public Patient Patient { get; set; }
 
 

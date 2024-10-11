@@ -14,15 +14,13 @@ builder.Services.AddDbContext<HospitalDBContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddIdentity<Person, IdentityRole>()
-////server-side validations
-//(Options =>
-//{
-//    Options.Password.RequireNonAlphanumeric = true;
-//    Options.Password.RequireDigit = true;
-//    Options.Password.RequireLowercase = true;
-//    Options.Password.RequireUppercase = true;
-//})
+builder.Services.AddIdentity<Person, IdentityRole>(Options =>
+{
+    Options.Password.RequireNonAlphanumeric = false;
+    Options.Password.RequireDigit = false;
+    Options.Password.RequireLowercase = false;
+    Options.Password.RequireUppercase = false;
+}) //server-side validations
                 .AddEntityFrameworkStores<HospitalDBContext>()
                 .AddDefaultTokenProviders();
 
@@ -43,6 +41,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -53,6 +52,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

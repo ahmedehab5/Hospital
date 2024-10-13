@@ -80,9 +80,9 @@ namespace Hospital.Controllers
                 return NotFound(); // Handle case where patient is not found
             }
 
-            // Retrieve appointments for the patient
+            // Retrieve past appointments for the patient (appointments before today)
             var appointments = _context.Appointments
-                .Where(a => a.PatientId == patientId)
+                .Where(a => a.PatientId == patientId && a.Date < DateTime.Now) // Filter out future appointments
                 .Include(a => a.Doctor) // Include doctor details
                 .OrderByDescending(a => a.Date)
                 .ToList();
@@ -92,6 +92,37 @@ namespace Hospital.Controllers
 
             return View(appointments);
         }
+
+        #endregion
+
+        #region UpcomingAppointmentsForPatient
+        [HttpGet]
+        public IActionResult UpcomingAppointmentsForPatient(string patientId)
+        {
+            // Retrieve patient information
+            var patient = _context.Patients
+                .Where(p => p.Id == patientId)
+                .Select(p => new { p.FirstName, p.LastName })
+                .FirstOrDefault();
+
+            if (patient == null)
+            {
+                return NotFound(); // Handle case where patient is not found
+            }
+
+            // Retrieve upcoming appointments for the patient
+            var appointments = _context.Appointments
+                .Where(a => a.PatientId == patientId && a.Date >= DateTime.Now) // Show only future appointments
+                .Include(a => a.Doctor) // Include doctor details
+                .OrderBy(a => a.Date)
+                .ToList();
+
+            // Pass patient name to the view
+            ViewData["PatientName"] = $"{patient.FirstName} {patient.LastName}";
+
+            return View(appointments);
+        }
+
         #endregion
 
         #region HistoryForDoctor
@@ -110,9 +141,9 @@ namespace Hospital.Controllers
                 return NotFound(); // Handle case where doctor is not found
             }
 
-            // Retrieve appointments for the doctor
+            // Retrieve appointments for the doctor that are before today
             var appointments = _context.Appointments
-                .Where(a => a.DoctorId == doctorId)
+                .Where(a => a.DoctorId == doctorId && a.Date < DateTime.Now) // Show only past appointments
                 .Include(a => a.Patient) // Include patient details
                 .OrderByDescending(a => a.Date)
                 .ToList();
@@ -122,6 +153,37 @@ namespace Hospital.Controllers
 
             return View(appointments);
         }
+
+        #endregion
+
+        #region UpcomingAppointmentsForDoctor
+        [HttpGet]
+        public IActionResult UpcomingAppointmentsForDoctor(string doctorId)
+        {
+            // Retrieve doctor information
+            var doctor = _context.Doctors
+                .Where(d => d.Id == doctorId)
+                .Select(d => new { d.FirstName, d.LastName })
+                .FirstOrDefault();
+
+            if (doctor == null)
+            {
+                return NotFound(); // Handle case where doctor is not found
+            }
+
+            // Retrieve upcoming appointments for the doctor
+            var appointments = _context.Appointments
+                .Where(a => a.DoctorId == doctorId && a.Date >= DateTime.Now) // Show only future appointments
+                .Include(a => a.Patient) // Include patient details
+                .OrderBy(a => a.Date)
+                .ToList();
+
+            // Pass doctor name to the view
+            ViewData["DoctorName"] = $"{doctor.FirstName} {doctor.LastName}";
+
+            return View(appointments);
+        }
+
         #endregion
 
         #region MakeAppointment(PatientSide)
@@ -156,18 +218,20 @@ namespace Hospital.Controllers
         [HttpGet]
         public JsonResult GetDoctorsBySpecialization(string specialization)
         {
-            // Fetch doctors who belong to the selected specialization
             var doctors = _context.Doctors
-                .Where(d => d.Specialization.Name == specialization) // Filter by specialization name
+                .Where(d => d.Specialization.Name == specialization)
                 .Select(d => new
                 {
                     Id = d.Id,
-                    FullName = d.FirstName + " " + d.LastName
+                    FullName = d.FirstName + " " + d.LastName,
+                    WorkingDays = d.WorkingDays.ToString() // Assuming it returns a string format like "Saturday, Sunday"
                 })
                 .ToList();
 
             return Json(doctors);
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

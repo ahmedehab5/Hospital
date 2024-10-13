@@ -4,79 +4,128 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create Appointment</h1>
+<style>
+    .form-title {
+        font-size: 2em;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #4A4A4A;
+    }
 
-<h4>Appointment Details</h4>
-<hr />
+    .alert {
+        margin-bottom: 20px;
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <!-- If ModelState is invalid, show errors (for debugging purposes) -->
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <div class="alert alert-danger">
-                <h5>Model State Errors:</h5>
-                <ul>
-                    @foreach (var state in ViewData.ModelState)
-                    {
-                        foreach (var error in state.Value.Errors)
-                        {
-                            <li>Error in @state.Key: @error.ErrorMessage</li>
-                        }
-                    }
-                </ul>
-            </div>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
         }
 
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
 
-            <div class="form-group">
-                <label asp-for="Specialization" class="control-label"></label>
-                <select id="Specialization" asp-for="Specialization" class="form-control" asp-items="ViewBag.Specialization">
-                    <option value="">-- Select Specialization --</option>
-                </select>
-                <span asp-validation-for="Specialization" class="text-danger"></span>
-            </div>
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
 
-            <div class="form-group">
-                <label asp-for="DoctorId" class="control-label"></label>
-                <select asp-for="DoctorId" id="DoctorId" class="form-control">
-                    <option value="">-- Select Doctor --</option>
-                    <!-- Doctors will be populated dynamically here -->
-                </select>
-                <span asp-validation-for="DoctorId" class="text-danger"></span>
-            </div>
+    .working-day-label {
+        margin-top: 10px;
+        font-weight: bold;
+    }
 
+    .text-center {
+        margin-top: 20px;
+    }
+</style>
 
-            <div class="form-group">
-                <label asp-for="PatientId" class="control-label"></label>
+<div class="container mt-5">
+    <h1 class="form-title">Create Appointment</h1>
 
-                <!-- Disabled select to show the patient name (read-only) -->
-                <select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId" disabled></select>
+    <h4>Appointment Details</h4>
+    <hr />
 
-                <!-- Hidden field to store and submit the PatientId -->
-                <input type="hidden" asp-for="PatientId" />
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <h5>Model State Errors:</h5>
+                    <ul>
+                        @foreach (var state in ViewData.ModelState)
+                        {
+                            foreach (var error in state.Value.Errors)
+                            {
+                                <li>Error in @state.Key: @error.ErrorMessage</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            }
 
-                <span asp-validation-for="PatientId" class="text-danger"></span>
-            </div>
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-           
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" type="datetime-local" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="Specialization" class="control-label"></label>
+                    <select id="Specialization" asp-for="Specialization" class="form-control" asp-items="ViewBag.Specialization">
+                        <option value="">-- Select Specialization --</option>
+                    </select>
+                    <span asp-validation-for="Specialization" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="DoctorId" class="control-label"></label>
+                    <select asp-for="DoctorId" id="DoctorId" class="form-control">
+                        <option value="">-- Select Doctor --</option>
+                    </select>
+                    <span asp-validation-for="DoctorId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label working-day-label">Working Days</label>
+                    <select id="WorkingDay" class="form-control" disabled>
+                        <option value="">-- Select Working Day --</option>
+                    </select>
+                    <span class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PatientId" class="control-label"></label>
+                    <select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId" disabled></select>
+                    <input type="hidden" asp-for="PatientId" />
+                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <!-- Set the readonly attribute for the date input -->
+                    <input asp-for="Date" class="form-control" type="date" id="Date" readonly />
+                    <input type="hidden" id="HiddenDate" asp-for="Date" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="text-center mt-3">
+        <a asp-action="Index" class="btn btn-secondary btn-lg">Back to List</a>
+    </div>
 </div>
 
 @section Scripts {
@@ -86,13 +135,13 @@
             $('#Specialization').change(function () {
                 var specialization = $(this).val();
 
-                // Clear the doctor dropdown
-                $('#DoctorId').empty();
-                $('#DoctorId').append('<option value="">-- Select Doctor --</option>');
+                // Clear the doctor dropdown and working day dropdown
+                $('#DoctorId').empty().append('<option value="">-- Select Doctor --</option>');
+                $('#WorkingDay').empty().append('<option value="">-- Select Working Day --</option>').prop('disabled', true);
 
                 if (specialization) {
                     $.ajax({
-                        url: '@Url.Action("GetDoctorsBySpecialization")', // Controller action to fetch doctors
+                        url: '@Url.Action("GetDoctorsBySpecialization")',
                         type: 'GET',
                         data: { specialization: specialization },
                         success: function (data) {
@@ -102,12 +151,80 @@
                                     text: doctor.fullName
                                 }));
                             });
+
+                            // When a doctor is selected, update the working days
+                            $('#DoctorId').change(function () {
+                                var selectedDoctor = data.find(d => d.id === $(this).val());
+                                $('#WorkingDay').empty().append('<option value="">-- Select Working Day --</option>').prop('disabled', false);
+
+                                if (selectedDoctor) {
+                                    // Add working days to the dropdown
+                                    var workingDays = selectedDoctor.workingDays.split(','); // Assuming WorkingDays are comma-separated
+                                    $.each(workingDays, function (i, day) {
+                                        $('#WorkingDay').append($('<option>', {
+                                            value: day.trim(),
+                                            text: day.trim()
+                                        }));
+                                    });
+                                } else {
+                                    $('#WorkingDay').prop('disabled', true); // Disable if no doctor is selected
+                                }
+                            });
                         }
                     });
                 }
             });
+
+            // Update the date when a working day is selected
+            $('#WorkingDay').change(function () {
+                var selectedDay = $(this).val();
+                if (selectedDay) {
+                    var today = new Date();
+                    var dayOfWeek = getDayIndex(selectedDay); // Get the index of the selected day
+                    var nextDate = getNextDate(today, dayOfWeek); // Calculate the next date for the selected day
+                    $('#Date').val(nextDate.toISOString().slice(0, 10)); // Update the date input to show only the date
+                    $('#HiddenDate').val(nextDate.toISOString()); // Update the hidden input with full datetime
+                }
+            });
+
+            // Update the hidden date input with the full datetime when the visible date input changes
+            function updateHiddenDate() {
+                var dateInput = $('#Date').val();
+                var selectedDay = $('#WorkingDay').val();
+                var today = new Date(dateInput);
+                if (selectedDay) {
+                    var dayOfWeek = getDayIndex(selectedDay); // Get the index of the selected day
+                    var nextDate = getNextDate(today, dayOfWeek); // Calculate the next date for the selected day
+                    var hours = 9; // Set your desired hour here (e.g., 09:00 AM)
+                    nextDate.setHours(hours, 0, 0, 0); // Set the time to 09:00 AM
+                    $('#HiddenDate').val(nextDate.toISOString()); // Update the hidden input
+                }
+            }
+
+            function getDayIndex(day) {
+                switch (day) {
+                    case 'Saturday': return 6;
+                    case 'Sunday': return 0;
+                    case 'Monday': return 1;
+                    case 'Tuesday': return 2;
+                    case 'Wednesday': return 3;
+                    case 'Thursday': return 4;
+                    case 'Friday': return 5;
+                    default: return -1;
+                }
+            }
+
+            function getNextDate(startDate, dayOfWeek) {
+                var resultDate = new Date(startDate);
+                var currentDay = resultDate.getDay();
+
+                // Calculate days until the next occurrence of the selected day
+                var daysUntilNext = (dayOfWeek + 7 - currentDay) % 7 || 7; // If today is the same day, select the next week
+
+                // Set the next date
+                resultDate.setDate(resultDate.getDate() + daysUntilNext);
+                return resultDate;
+            }
         });
     </script>
 }
-
-

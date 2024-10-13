@@ -23,10 +23,24 @@ namespace Hospital.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+		//[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		//public IActionResult Error()
+		//{
+		//    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		//}
+
+		public IActionResult Error()
+		{
+			// You can pass a custom error message to the view if you want
+			ViewBag.ErrorMessage = "You do not have permission to access this page.";
+			return View();
+		}
+
+
+        public IActionResult ChooseRole()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
-    }
+
+	}
 }

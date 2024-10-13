@@ -36,7 +36,7 @@ namespace Hospital.Controllers
         }
 
 
-        //[Authorize(Roles ="")]
+        
         [HttpPost]
         public async Task<IActionResult> Create(Patient patient)
         {           

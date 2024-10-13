@@ -1,5 +1,6 @@
 ﻿using Hospital.Models;
 using Hospital.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,14 @@ namespace Hospital.Controllers
 
         private readonly UserManager<Person> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+		private readonly SignInManager<Person> _signInManager;
 
-        public AdminController(UserManager<Person> userManager, RoleManager<IdentityRole> roleManager)
+		public AdminController(UserManager<Person> userManager, RoleManager<IdentityRole> roleManager, SignInManager<Person> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-        }
+			_signInManager = signInManager;
+		}
 
         public IActionResult Index()
         {
@@ -72,7 +75,8 @@ namespace Hospital.Controllers
 
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+					Console.WriteLine(error.Description);
+					ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
@@ -188,6 +192,116 @@ namespace Hospital.Controllers
             }
         }
 
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+
+
+
+        #region MyRegion
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost]
+        //public async Task<IActionResult> Login(LoginViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = await _userManager.FindByEmailAsync(model.Email);
+
+        //        if (user != null) // Check if user exists
+        //        {
+        //            bool isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password);
+        //            if (isPasswordValid) // Check if the password is correct
+        //            {
+        //                // Check if the user is an Admin
+        //                var roles = await _userManager.GetRolesAsync(user);
+        //                if (roles.Contains("Admin"))
+        //                {
+        //                    // Sign in the admin and redirect to the admin dashboard
+        //                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+        //                    return RedirectToAction("Index", "Admin");
+        //                }
+        //                else
+        //                {
+        //                    // Display an error message if the user is not an Admin
+        //                    ModelState.AddModelError(string.Empty, "Access Denied: You do not have permission to access this area.");
+        //                    return View(model); // Return to the same view with the error message
+        //                }
+        //            }
+        //            else
+        //            {
+        //                ModelState.AddModelError("", "Incorrect Email or Password");
+        //            }
+        //        }
+        //        else // If this user doesn't exist
+        //        {
+        //            ModelState.AddModelError(string.Empty, "This Email doesn't exist.");
+        //        }
+        //    }
+
+        //    return View(model);
+        //} 
+        #endregion
+
+
+        #region MyRegion
+        ////[Authorize(Roles = "Admin")]
+        //[HttpPost]
+        //public async Task<IActionResult> Login(LoginViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = await _userManager.FindByEmailAsync(model.Email);
+
+        //        if (user != null) // Check if user exists
+        //        {
+        //            // First, check if the user is an Admin
+        //            var roles = await _userManager.GetRolesAsync(user);
+        //            if (roles.Contains("Admin"))
+        //            {
+        //                // Check if the password is correct
+        //                bool isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password);
+        //                if (isPasswordValid) // If password is valid, sign in
+        //                {
+        //                    await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+        //                    return RedirectToAction("Index", "Admin"); // Redirect to Admin dashboard
+        //                }
+        //                else
+        //                {
+        //                    ModelState.AddModelError("", "Incorrect Password.");
+        //                }
+        //            }
+        //            else
+        //            {
+        //                // If the user is not an Admin, show an access denied message
+        //                ModelState.AddModelError(string.Empty, "Access Denied: You do not have permission to access this area.");
+        //            }
+        //        }
+        //        else // If the user doesn't exist
+        //        {
+        //            ModelState.AddModelError(string.Empty, "This Email doesn't exist.");
+        //        }
+        //    }
+
+        //    return View(model); // Stay on the same page with the error messages
+        //}
+        #endregion
+
+
+
+
+
+
+
+        //      [HttpGet]
+        //public IActionResult AccessDenied()
+        //{
+        //	ViewBag.Message = "You do not have permission to access this resource.";
+        //	return View();
+        //}
 
     }
 }

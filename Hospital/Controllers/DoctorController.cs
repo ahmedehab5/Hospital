@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hospital.Contexts;
 using Hospital.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hospital.Controllers
 {
     public class DoctorController : Controller
     {
         private readonly HospitalDBContext _context;
+        private readonly UserManager<Person> _userManager;
+        private readonly SignInManager<Person> _signInManager;
 
-        public DoctorController(HospitalDBContext context)
+        public DoctorController(HospitalDBContext context, UserManager<Person> userManager, SignInManager<Person> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: Doctor
@@ -62,13 +67,22 @@ namespace Hospital.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserName,WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,Phone,Gender,PasswordHash,Email,Image")] Doctor doctor,[Bind("ImageData")] string ImageData = null)
+        public async Task<IActionResult> Create([Bind("UserName,WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,PhoneNumber,Gender,PasswordHash,Email,Image")] Doctor doctor,[Bind("ImageData")] string ImageData = null)
         {
             doctor.Image = ImageData != null ? ImageData.Split(',').Select(byte.Parse).ToArray():null;
             //if (ModelState.IsValid)
             {
-                _context.Add(doctor);
-                await _context.SaveChangesAsync();
+                doctor.Agree = true;
+                IdentityResult Result = await _userManager.CreateAsync(doctor, doctor.PasswordHash);
+
+                if (Result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(doctor, "Doctor");
+                }
+                else
+                    foreach (var error in Result.Errors)
+                        ModelState.AddModelError(string.Empty, error.Description);
+          
                 return RedirectToAction(nameof(Index));
             }
             ViewData["SpecializationId"] = new SelectList(_context.Specializations, "Id", "Id", doctor.SpecializationId);
@@ -102,7 +116,7 @@ namespace Hospital.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("UserName,WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,Phone,Gender,PasswordHash,Email,Image")] Doctor doctor)
+        public async Task<IActionResult> Edit(string id, [Bind("UserName,WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,PhoneNumber,Gender,PasswordHash,Email,Image")] Doctor doctor)
         {
             if (id != doctor.Id)
             {
@@ -114,10 +128,24 @@ namespace Hospital.Controllers
             {
                 try
                 {
-                    // solve the problem of updating that happens because of concurrency
-                    _context.Update(doctor);
-                    _context.Entry(doctor).State = EntityState.Modified;
-                    await _context.SaveChangesAsync();
+                    doctor.ConcurrencyStamp = _context.Doctors.AsNoTracking().FirstOrDefault(d => d.Id == id).ConcurrencyStamp;
+                    doctor.Agree = true;
+                    doctor.LockoutEnabled = true;
+                    doctor.NormalizedEmail = doctor.Email.ToUpper();
+                    
+                    string oldPassword = _context.Doctors.AsNoTracking().FirstOrDefault(d => d.Id == id).PasswordHash;
+                    if (doctor.PasswordHash != oldPassword)
+                    {
+                        _context.Update(doctor);
+                        var token = await _userManager.GeneratePasswordResetTokenAsync(doctor);
+                        await _userManager.ResetPasswordAsync(doctor, token, doctor.PasswordHash);
+                    }
+                    else
+                    {
+                        _context.Update(doctor);
+                        await _context.SaveChangesAsync();
+                    }
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -163,7 +191,7 @@ namespace Hospital.Controllers
         // POST: Doctor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var doctor = await _context.Doctors.FindAsync(id);
             if (doctor != null)

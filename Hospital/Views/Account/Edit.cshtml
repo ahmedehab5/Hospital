@@ -1,0 +1,50 @@
+﻿@using Hospital.ViewModels
+@model Patient
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+
+<div asp-validation-summary="All" style="color:red"></div>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+
+        <input type="hidden" asp-for="Id" />
+
+        <label class="col-form-table" asp-for="FirstName">First Name </label>
+        <input class="form-control" asp-for="FirstName" required="">
+        <span asp-validation-for="FirstName" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="LastName">Last Name </label>
+        <input class="form-control" asp-for="LastName" required="">
+        <span asp-validation-for="LastName" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="PhoneNumber">Phone Number </label>
+        <input class="form-control" title="Please enter exactly 11 digits." maxlength="11" pattern="^\d{11}$" asp-for="PhoneNumber" required>
+        <span asp-validation-for="PhoneNumber" style="color:red"></span>
+        <br />
+
+
+        <label class="col-form-table" asp-for="Age">Age </label>
+        <input class="form-control" asp-for="Age" required>
+        <span asp-validation-for="Age" style="color:red"></span>
+        <br />
+
+
+
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" asp-controller="Home" class="btn btn-light">Back to list</a>
+
+
+    </div>
+</form>
+

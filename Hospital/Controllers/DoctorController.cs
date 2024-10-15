@@ -85,6 +85,7 @@ namespace Hospital.Controllers
           
                 return RedirectToAction(nameof(Index));
             }
+            
             ViewData["SpecializationId"] = new SelectList(_context.Specializations, "Id", "Id", doctor.SpecializationId);
             return View(doctor);
         }

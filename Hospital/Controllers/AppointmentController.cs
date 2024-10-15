@@ -189,6 +189,8 @@ namespace Hospital.Controllers
         #region MakeAppointment(PatientSide)
         public IActionResult Create(string PatientId)
         {
+
+
             // Fetch specializations
             var specializations = _context.Specializations
                 .Select(s => new
@@ -208,7 +210,7 @@ namespace Hospital.Controllers
                     FullName = p.FirstName + " " + p.LastName
                 })
                 .ToList();
-
+            //ViewBag.PatientId = PatientId;
             // Set the PatientId in the dropdown and select the patient passed via PatientId
             ViewData["PatientId"] = new SelectList(patients, "Id", "FullName", PatientId);
 

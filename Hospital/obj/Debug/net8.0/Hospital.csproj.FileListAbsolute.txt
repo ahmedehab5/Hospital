@@ -781,3 +781,8 @@ C:\Users\mohab\Source\Repos\Hospital\Hospital\obj\Debug\net8.0\refint\Hospital.d
 C:\Users\mohab\Source\Repos\Hospital\Hospital\obj\Debug\net8.0\Hospital.pdb
 C:\Users\mohab\Source\Repos\Hospital\Hospital\obj\Debug\net8.0\Hospital.genruntimeconfig.cache
 C:\Users\mohab\Source\Repos\Hospital\Hospital\obj\Debug\net8.0\ref\Hospital.dll
+D:\patient2\Hospital\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\patient2\Hospital\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\patient2\Hospital\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\patient2\Hospital\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\patient2\Hospital\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll

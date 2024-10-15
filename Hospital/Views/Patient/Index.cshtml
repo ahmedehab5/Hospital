@@ -27,8 +27,8 @@
                     <td>Age</td>                  
                     <td>Gender</td>
                     <td>Details</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    @*<td>Update</td>
+                    <td>Delete</td>*@
 
                 </tr>
             </thead>
@@ -44,9 +44,9 @@
                         <td>@patient.PhoneNumber</td>                      
                         <td>@patient.Age</td>
                         <td>@patient.Gender</td>
-                        <td><a asp-action="Details" asp-route-id="@patient.Id" class="text-info" class="text-info"><i class="fas fa-eye"></i></a></td>
-                        <td><a asp-action="Edit" asp-route-id="@patient.Id" class="text-warning"><i class="fas fa-edit"></i></a></td>
-                        <td><a asp-action="Delete" asp-route-id="@patient.Id" class="text-danger"><i class="fas fa-trash"></i></a></td>
+                        <td><a asp-action="Details" asp-route-id="@patient.Id" class="text-info"><i class="fas fa-eye"></i></a></td>
+                        @*<td><a asp-action="Edit" asp-route-id="@patient.Id" class="text-warning"><i class="fas fa-edit"></i></a></td>
+                        <td><a asp-action="Delete" asp-route-id="@patient.Id" class="text-danger"><i class="fas fa-trash"></i></a></td>*@
                     </tr>
                 }
             </tbody>

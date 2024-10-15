@@ -23,10 +23,186 @@ namespace Hospital.Controllers
         }
 
 
+        //[HttpGet]
+        //public async Task<IActionResult> Details(string? id)
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var model = new ProfileViewModel
+        //    {
+        //        FirstName = user.FirstName,
+        //        LastName = user.LastName,
+        //        Email = user.Email,
+        //        PhoneNumber = user.PhoneNumber,
+        //        Image = user.Image 
+        //    };
+
+        //    return View(model);
+        //}
+
+        //[Authorize]
 
 
 
-		[HttpGet]
+        //[HttpGet]
+        //public async Task<IActionResult> Details(string? id)
+        //{
+        //    if (id == null)
+        //        return NotFound();
+
+        //    var user = await _userManager.FindByIdAsync(id);
+
+        //    if (user == null)
+        //        return NotFound();
+
+        //    return View(user);
+        //}
+
+
+        //[Authorize]  // Ensure only logged-in users can access this
+        [HttpGet]
+        public async Task<IActionResult> Details(string? id)
+        {
+            if (id == null)
+                id = _userManager.GetUserId(User);  // Get the current user's ID if not provided
+
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            return View(user);  // Return the user's profile view
+        }
+
+
+        //[HttpGet]
+        //public async Task<IActionResult> Edit(string? id)
+        //{
+        //    if (id == null)
+        //        return NotFound();
+        //    var user = await _userManager.FindByIdAsync(id);
+
+        //    if (user == null)
+        //        return NotFound();
+        //    return View(user);
+
+        //}
+        [HttpGet]
+        public async Task<IActionResult> Edit(string? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            // Map the Patient model to ProfileViewModel
+            var model = new Patient
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Age = user.Age,
+                PhoneNumber = user.PhoneNumber,
+                Gender = user.Gender
+            };
+
+            // Pass ProfileViewModel to the view
+            return View(model);
+        }
+
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(ProfileViewModel model)
+        //{
+
+
+        //    try
+        //    {
+        //        var existingPatient = await _userManager.FindByIdAsync(model.Id);
+        //        if (existingPatient == null)
+        //        {
+        //            return NotFound(); // If patient doesn't exist
+        //        }
+
+        //        existingPatient.FirstName = model.FirstName;
+        //        existingPatient.LastName = model.LastName;
+        //        existingPatient.Email = model.Email;
+        //        existingPatient.Age = model.Age;
+        //        existingPatient.PhoneNumber = model.PhoneNumber;
+
+        //        var result = await _userManager.UpdateAsync(existingPatient);
+
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        else
+        //        {
+        //            foreach (var error in result.Errors)
+        //            {
+        //                ModelState.AddModelError(string.Empty, error.Description);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError(string.Empty, ex.Message);
+        //    }
+        //    return View(model);
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Patient patient)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(patient.Id);  // Now model.Id will contain the user ID
+                if (user == null)
+                {
+                    return NotFound(); // If patient doesn't exist
+                }
+
+                user.FirstName = patient.FirstName;
+                user.LastName = patient.LastName;
+                user.Email = patient.Email;
+                user.Age = patient.Age;
+                user.PhoneNumber = patient.PhoneNumber;
+                user.Gender = patient.Gender;
+
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index","Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
+            return View(patient);
+        }
+
+
+
+
+        [HttpGet]
 		public IActionResult Register()
 		{
 			return View();
@@ -55,7 +231,7 @@ namespace Hospital.Controllers
 				if (Result.Succeeded)
 				{ 
                     await _userManager.AddToRoleAsync(User, "Patient");
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Login","Account");
 				}
 				else 
 					foreach (var error in Result.Errors)
@@ -67,30 +243,6 @@ namespace Hospital.Controllers
 
 
 
-		#region LAST
-		//[HttpGet]
-		//public IActionResult Login()
-		//{
-		//	return View();
-		//} 
-		#endregion
-
-
-		#region LAST2
-		//public IActionResult Login(string role)
-		//{
-		//    if (string.IsNullOrEmpty(role))
-		//    {
-		//        // Handle the case when the role is not provided (error handling or redirect)
-		//        ModelState.AddModelError("", "The role field is required.");
-		//        return View();
-		//    }
-
-		//    // Pass the role to the view so it can be included in the form
-		//    ViewBag.Role = role;
-		//    return View();
-		//} 
-		#endregion
 
 		[HttpGet]
 		public IActionResult Login(string role)
@@ -114,271 +266,79 @@ namespace Hospital.Controllers
 
 
 
-		//[Authorize(Roles = "Patient")]
-		//[HttpPost]
-		//public async Task<IActionResult> Login(LoginViewModel model)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//              var user = await _userManager.FindByEmailAsync(model.Email);
-
-		//		if (user != null) //check if user exists
-		//		{
-		//			bool Flag = await _userManager.CheckPasswordAsync(user, model.Password);
-		//			if (Flag) //check password
-		//			{
-		//				var Result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-		//				return RedirectToAction("Index", "Home");
-		//			}
-
-		//			else
-		//				ModelState.AddModelError("", "Incorrect Email or Password");
-		//		}
-		//		else //if this user doesn't exist
-		//		{
-		//			ModelState.AddModelError(string.Empty, "This Email doesn't exist");
-		//		}
-		//	}
-
-		//	return View(model);
-		//}
 
 
-		//[Authorize(Roles = "Patient")]
-		//[HttpPost]
-		//public async Task<IActionResult> Login(LoginViewModel model)
-		//{
-		//    if (ModelState.IsValid)
-		//    {
-		//        var user = await _userManager.FindByEmailAsync(model.Email);
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model, string role)
+        {
+            
+            if (string.IsNullOrEmpty(role))
+            {
+                role = TempData["Role"] as string;
+            }
 
-		//        if (user != null) //check if user exists
-		//        {
-		//            if (await _userManager.IsInRoleAsync(user, "Patient"))
-		//            {
-		//                bool isPasswordCorrect = await _userManager.CheckPasswordAsync(user, model.Password);
-		//                if (isPasswordCorrect) //check password
-		//                {
-		//                    await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-		//                    return RedirectToAction("Index", "Home");
-		//                }
-		//                else
-		//                {
-		//                    ModelState.AddModelError("", "Incorrect Email or Password");
-		//                }
-		//            }
-		//            else
-		//            {
-		//                ModelState.AddModelError("", "Access Denied: You are not authorized to login as a patient.");
-		//            }
-		//        }
-		//        else //if this user doesn't exist
-		//        {
-		//            ModelState.AddModelError(string.Empty, "This Email doesn't exist");
-		//        }
-		//    }
+            
+            if (string.IsNullOrEmpty(role))
+            {
+                ModelState.AddModelError("", "The role field is required.");
+                TempData["Role"] = role; 
+                return View(model);
+            }
 
-		//    return View(model);
-		//}
+            TempData["Role"] = role; 
 
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
 
-		#region MyRegion
-		//[Authorize(Roles = "Patient")]
-		//[HttpPost]
-		//public async Task<IActionResult> Login(LoginViewModel model)
-		//{
-		//    if (ModelState.IsValid)
-		//    {
-		//        var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    bool isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password);
+                    if (isPasswordValid)
+                    {
+                        var roles = await _userManager.GetRolesAsync(user);
 
-		//        if (user != null) // Check if user exists
-		//        {
-		//            bool isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password);
-		//            if (isPasswordValid) // Check if the password is correct
-		//            {
-		//                // Check if the user is an Admin
-		//                var roles = await _userManager.GetRolesAsync(user);
-		//                if (roles.Contains("Patient"))
-		//                {
-		//                    // Sign in the admin and redirect to the admin dashboard
-		//                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-		//                    return RedirectToAction("Index", "Account");
-		//                }
-		//                else
-		//                {
-		//                    // Display an error message if the user is not an Admin
-		//                    ModelState.AddModelError(string.Empty, "Access Denied: You do not have permission to access this area.");
-		//                    return View(model); // Return to the same view with the error message
-		//                }
-		//            }
-		//            else
-		//            {
-		//                ModelState.AddModelError("", "Incorrect Email or Password");
-		//            }
-		//        }
-		//        else // If this user doesn't exist
-		//        {
-		//            ModelState.AddModelError(string.Empty, "This Email doesn't exist.");
-		//        }
-		//    }
+                        if (roles.Contains(role))
+                        {
+                            await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
 
-		//    return View(model);
-		//} 
-		#endregion
+                            
+                            if (role == "Admin")
+                            {
+                                return RedirectToAction("Index", "Admin"); 
+                            }
+                            else if (role == "Patient")
+                            {
+                                return RedirectToAction("Index", "Home", new { PatientId = user.Id }); 
+                            }
+                            else if (role == "Doctor")
+                            {
+                                return RedirectToAction("Details", "Doctor", new { DoctorId = user.Id }); 
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Access Denied: You do not have permission to access this area.");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Incorrect Email or Password.");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "This Email doesn't exist.");
+                }
+            }
 
-		#region LAST
-		////[Authorize(Roles = "Patient")]
-		//[HttpPost]
-		//public async Task<IActionResult> Login(LoginViewModel model)
-		//{
-		//    if (ModelState.IsValid)
-		//    {
-		//        var user = await _userManager.FindByEmailAsync(model.Email);
-
-		//        if (user != null) // Check if user exists
-		//        {
-		//            // First, check if the user is an Admin
-		//            var roles = await _userManager.GetRolesAsync(user);
-		//            if (roles.Contains("Patient"))
-		//            {
-		//                // Check if the password is correct
-		//                bool isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password);
-		//                if (isPasswordValid) // If password is valid, sign in
-		//                {
-		//                    await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-		//                    return RedirectToAction("Index", "Home"); // Redirect to Admin dashboard
-		//                }
-		//                else
-		//                {
-		//                    ModelState.AddModelError("", "Incorrect Password.");
-		//                }
-		//            }
-		//            else
-		//            {
-		//                // If the user is not an Admin, show an access denied message
-		//                ModelState.AddModelError(string.Empty, "Access Denied: You do not have permission to access this area.");
-		//            }
-		//        }
-		//        else // If the user doesn't exist
-		//        {
-		//            ModelState.AddModelError(string.Empty, "This Email doesn't exist.");
-		//        }
-		//    }
-
-		//    return View(model); // Stay on the same page with the error messages
-		//}
-
-		#endregion
-
-
-
-		#region LAST2
-		//[HttpPost]
-		//public async Task<IActionResult> Login(LoginViewModel model, string role)
-		//{
-		//    if (ModelState.IsValid)
-		//    {
-		//        var user = await _userManager.FindByEmailAsync(model.Email);
-
-		//        if (user != null) // Check if user exists
-		//        {
-		//            bool isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password);
-		//            if (isPasswordValid)
-		//            {
-		//                var roles = await _userManager.GetRolesAsync(user);
-
-		//                if (roles.Contains(role)) // Check if the user has the selected role
-		//                {
-		//                    await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-
-		//                    // Redirect based on role
-		//                    if (role == "Admin")
-		//                        return RedirectToAction("Index", "Admin");
-		//                    else if (role == "Patient")
-		//                        return RedirectToAction("Index", "Patient");
-		//                    else if (role == "Doctor")
-		//                        return RedirectToAction("Index", "Doctor");
-		//                }
-		//                else
-		//                {
-		//                    ModelState.AddModelError(string.Empty, $"Access Denied: You do not have {role} permissions.");
-		//                }
-		//            }
-		//            else
-		//            {
-		//                ModelState.AddModelError("", "Incorrect Password.");
-		//            }
-		//        }
-		//        else
-		//        {
-		//            ModelState.AddModelError("", "This Email doesn't exist.");
-		//        }
-		//    }
-
-		//    return View(model);
-		//} 
-		#endregion
-
-
-		[HttpPost]
-		public async Task<IActionResult> Login(LoginViewModel model, string role)
-		{
-			// If role is not provided, attempt to retrieve it from TempData
-			if (string.IsNullOrEmpty(role))
-			{
-				role = TempData["Role"] as string;
-			}
-
-			// If the role is still missing, return an error
-			if (string.IsNullOrEmpty(role))
-			{
-				ModelState.AddModelError("", "The role field is required.");
-				TempData["Role"] = role; // Store the role in TempData for next attempt
-				return View(model);
-			}
-
-			TempData["Role"] = role; // Store the role in TempData for next attempt
-
-			if (ModelState.IsValid)
-			{
-				var user = await _userManager.FindByEmailAsync(model.Email);
-
-				if (user != null)
-				{
-					bool isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password);
-					if (isPasswordValid)
-					{
-						var roles = await _userManager.GetRolesAsync(user);
-
-						if (roles.Contains(role))
-						{
-							await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
-							return RedirectToAction("Index", role == "Admin" ? "Admin" : "Home");
-						}
-						else
-						{
-							ModelState.AddModelError("", "Access Denied: You do not have permission to access this area.");
-						}
-					}
-					else
-					{
-						ModelState.AddModelError("", "Incorrect Email or Password.");
-					}
-				}
-				else
-				{
-					ModelState.AddModelError("", "This Email doesn't exist.");
-				}
-			}
-
-			return View(model); // Stay on the same page with the error messages
-		}
+            return View(model); // Stay on the same page with the error messages
+        }
 
 
 
 
-
-		public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout()
 		{
 			await _signInManager.SignOutAsync();
 			return RedirectToAction("Login");
@@ -473,11 +433,6 @@ namespace Hospital.Controllers
 
 
 
-        //[HttpGet]
-        //public IActionResult AccessDenied()
-        //{
-        //    return View(); // This will look for a view named AccessDenied.cshtml
-        //}
 
     }
 }

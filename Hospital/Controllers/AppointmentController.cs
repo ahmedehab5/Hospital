@@ -158,7 +158,7 @@ namespace Hospital.Controllers
 
         #region UpcomingAppointmentsForDoctor
         [HttpGet]
-        public IActionResult UpcomingAppointmentsForDoctor(string doctorId)
+        public IActionResult UpcomingAppointmentsForDoctor([Bind("Id")] string doctorId)
         {
             // Retrieve doctor information
             var doctor = _context.Doctors

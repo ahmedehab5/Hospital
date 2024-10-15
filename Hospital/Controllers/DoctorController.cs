@@ -31,6 +31,13 @@ namespace Hospital.Controllers
             return View(await hospitalDBContext.ToListAsync());
         }
 
+        //index for signed in doctor
+        public async Task<IActionResult> IndexUser()
+        {
+            var doctor = await _context.Doctors.Include(d => d.Specialization).FirstOrDefaultAsync(d => d.Id == _userManager.GetUserId(User));
+            return View(doctor);
+        }
+
         // GET: Doctor/Details/5
         public async Task<IActionResult> Details(string? id)
         {
@@ -47,6 +54,12 @@ namespace Hospital.Controllers
                 return NotFound();
             }
 
+            return View(doctor);
+        }
+
+        public async Task<IActionResult> DetailsUser()
+        {
+            var doctor = await _context.Doctors.Include(d => d.Specialization).FirstOrDefaultAsync(d => d.Id == _userManager.GetUserId(User));
             return View(doctor);
         }
 
@@ -168,6 +181,65 @@ namespace Hospital.Controllers
                         .ToList();
             ViewData["WeekDays"] = daysList; // Pass the list of days directly
             return View(doctor);
+        }
+
+        public async Task<IActionResult> EditUser(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var doctor = await _context.Doctors.FindAsync(id);
+            if (doctor == null)
+            {
+                return NotFound();
+            }
+            return View(doctor);
+        }
+
+        // POST: Doctor/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUser(string id ,[Bind("Id,FirstName,LastName,PhoneNumber, PasswordHash,Image")] Doctor doctor)
+        {
+            if (id != doctor.Id)
+            {
+                return NotFound();
+            }
+            var user = await _userManager.FindByIdAsync(id);
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            string? ImageData = Request.Form["ImageData"];
+          
+            try
+            {
+                user.FirstName = doctor.FirstName;
+                user.LastName = doctor.LastName;
+                user.PhoneNumber = doctor.PhoneNumber;
+                if(doctor.PasswordHash != null)
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    await _userManager.ResetPasswordAsync(user, token, doctor.PasswordHash);
+                }
+                var result = await _userManager.UpdateAsync(user);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DoctorExists(doctor.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Doctor/Delete/5

@@ -313,7 +313,7 @@ namespace Hospital.Controllers
                             }
                             else if (role == "Doctor")
                             {
-                                return RedirectToAction("Details", "Doctor", new { DoctorId = user.Id }); 
+                                return RedirectToAction("IndexUser", "Doctor", new { DoctorId = user.Id }); 
                             }
                         }
                         else

@@ -106,15 +106,16 @@ nav.horizontal ul li {
 img {
     max-width: 100%;
 }
-
+/*#0474cc, #0474cc     #bac8e0*/
 /*-- end reset --*/
 body {
-    background: #76b852;
+    background: #81B9E5;
+    /*background: #76b852;*/
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #76b852, #8DC26F);
-    background: -moz-linear-gradient(to top, #76b852, #8DC26F);
-    background: -o-linear-gradient(to top, #76b852, #8DC26F);
-    background: linear-gradient(to top, #76b852, #8DC26F);
+    background: -webkit-linear-gradient(to top,#0474cc 0%, #81B9E5 100%);
+    background: -moz-linear-gradient(to top, #0474cc 0%, #81B9E5 100%);
+    background: -o-linear-gradient(to top, #0474cc 0%, #81B9E5 100%);
+    background: linear-gradient(to top, #0474cc 0%, #81B9E5 100%);
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Roboto', sans-serif;
@@ -126,7 +127,7 @@ h1 {
     color: #fff;
     font-weight: 100;
     text-transform: capitalize;
-    letter-spacing: 4px;
+    letter-spacing: 2px;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -140,18 +141,21 @@ h1 {
     margin: 3em auto;
     background: rgba(0, 0, 0, 0.18);
     background-size: cover;
+    border-radius:10px;
 }
 
 .agileits-top {
     padding: 3em;
 }
 
-input[type="text"], input[type="email"], input[type="password"]  {
-    font-size: 0.9em;
+
+input[type="text"], input[type="email"], input[type="password"], select {
+    font-size: 1em;
     color: #fff;
-    font-weight: 100;
-    width: 94.5%;
+    font-weight: 500;
+    width: 100%; /* Set width to 100% */
     display: block;
+    box-sizing: border-box; /* Include padding and border in width calculation */
     border: none;
     padding: 0.8em;
     border: solid 1px rgba(255, 255, 255, 0.37);
@@ -164,7 +168,43 @@ input[type="text"], input[type="email"], input[type="password"]  {
     background-repeat: no-repeat;
     color: #fff;
     font-family: 'Roboto', sans-serif;
+    border-radius: 5px;
+    /*margin-bottom: 1em;*/ /* Ensure some space between elements */
 }
+
+
+
+/*input:-webkit-autofill {*/
+    /*background: none !important;*/
+    /*visibility:hidden;*/
+    /*background-color: transparent !important;*/
+    /*background: -webkit-linear-gradient(to top,#0474cc 0%, #81B9E5 100%) !important;
+    background: linear-gradient(to top, #0474cc 0%, #81B9E5 100%) !important;*/
+    /*-webkit-box-shadow: 0 0 0 1000px #81B9E5 inset !important;
+    -webkit-text-fill-color: #fff !important;*/ /* Ensures text color remains white */
+/*}*/
+
+
+/*input:-webkit-autofill {
+    -webkit-background-clip: text;
+    color:white
+}
+*/
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:focus {
+        transition: background-color 600000s 0s, color 600000s 0s;
+    }
+
+input[data-autocompleted] {
+    background-color: transparent !important;
+}
+
+
+    select option {
+        color: black; /* Set the text color of the options */
+        background-color: #fff; /* Set the background color of the options */
+    }
 
 input.email, input.text.w3lpass {
     margin: 2em 0;
@@ -185,16 +225,19 @@ input.email, input.text.w3lpass {
         -ms-transform: translateY(-30px);
         transform: translateY(-30px);
         visibility: visible !important;
+        
     }
 
 ::-webkit-input-placeholder {
     color: #fff;
     font-weight: 100;
+    
 }
 
 :-moz-placeholder {
     /* Firefox 18- */
     color: #fff;
+
 }
 
 ::-moz-placeholder {
@@ -204,20 +247,23 @@ input.email, input.text.w3lpass {
 
 :-ms-input-placeholder {
     color: #fff;
+    
 }
 
 input[type="submit"] {
-    font-size: .9em;
-    color: #fff;
-    background: #76b852;
+    font-size: 1em;
+    font-weight:500;
+    color: #0474cc;
+    background: #fff;
     outline: none;
-    border: 1px solid #76b852;
+    border: 1px solid #fff;
     cursor: pointer;
     padding: 0.9em;
     -webkit-appearance: none;
     width: 100%;
     margin: 2em 0;
     letter-spacing: 4px;
+    border-radius:10px;
 }
 
     input[type="submit"]:hover {
@@ -226,7 +272,7 @@ input[type="submit"] {
         -o-transition: .5s all;
         -ms-transition: .5s all;
         transition: .5s all;
-        background: #8DC26F;
+        background: #fff;
     }
 
 .agileits-top p {
@@ -246,7 +292,9 @@ input[type="submit"] {
     }
 
         .agileits-top p a:hover {
-            color: #76b852;
+            color: #02335a;
+            /*transform: scale();*/ /* Enlarge the link to 110% of its original size */
+            /*transition: transform 0.3s ease-in-out;*/ /* Add a smooth transition effect */
         }
 
 /*-- //main --*/
@@ -260,7 +308,7 @@ input[type="submit"] {
 }
 
 input.checkbox {
-    background: #8DC26F;
+    background: #0474cc;
     cursor: pointer;
     width: 1.2em;
     height: 1.2em;

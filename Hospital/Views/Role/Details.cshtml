@@ -3,75 +3,34 @@
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Admin&DoctorLayout.cshtml";
 }
 
 
-<div class="form-group">
 
-    <label class="col-form-table" asp-for="Id">Id </label>
-    <input readonly class="form-control" asp-for="Id" required="">
-    <br />
+<h3> Role details</h3>
+<div>
 
-
-    <label class="col-form-table" asp-for="RoleName">Role Name </label>
-    <input readonly class="form-control" asp-for="RoleName" required="">
-    <br />
-
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
-    <a asp-action="Index" class="btn btn-light">Back to list</a>
-
-
-</div>
-
-
-@* <div>
-    <h4>Doctor</h4>
     <hr />
     <dl class="row">
-
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
+            Role Name
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.RoleName)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
+       
 
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div> *@
 
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn" style="background-color:#0474cc; color:white">Edit</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+</div>

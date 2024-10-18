@@ -1,56 +1,19 @@
-﻿@* 
-@{
-    ViewData["Title"] = "ChooseRole";
-    Layout = "~/Views/Shared/_AuthLayout.cshtml";
-}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-
-
-<h1>Login As:</h1>
-
-<div class="role-selection">
-    <a asp-action="Login" asp-controller="Account" asp-route-role="Admin" class="btn" style="background-color: #ffffff; color: #76b852;">Admin</a>
-    <a asp-action="Login" asp-controller="Account" asp-route-role="Patient" class="btn" style="background-color: #ffffff; color: #76b852;">Patient</a>
-    <a asp-action="Login" asp-controller="Account" asp-route-role="Doctor" class="btn" style="background-color: #ffffff; color: #76b852;">Doctor</a>
-
-
-</div>
-
-<style>
-    .role-selection {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        font-size: 18px;
-    }
-</style>
-
-@section ValidationScriptSection
-{
-    <partial name="_ValidationScriptsPartial" />
-} *@
-
+﻿
 @{
     ViewData["Title"] = "ChooseRole";
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+<link href="~/css/layoutstylesheet.css" rel="stylesheet" />
 <!-- Container for centering -->
 <div class="fullscreen-container">
     <div>
         <h1>Login As:</h1>
         <div class="role-selection">
-            <a asp-action="Login" asp-controller="Account" asp-route-role="Admin" class="btn" style="background-color: #ffffff; color: #76b852;">Admin</a>
-            <a asp-action="Login" asp-controller="Account" asp-route-role="Patient" class="btn" style="background-color: #ffffff; color: #76b852;">Patient</a>
-            <a asp-action="Login" asp-controller="Account" asp-route-role="Doctor" class="btn" style="background-color: #ffffff; color: #76b852;">Doctor</a>
+            <a asp-action="Login" asp-controller="Account" asp-route-role="Admin" class="btn" style="background-color: #ffffff; color: #0474cc;">Admin</a>
+            <a asp-action="Login" asp-controller="Account" asp-route-role="Patient" class="btn" style="background-color: #ffffff; color: #0474cc;">Patient</a>
+            <a asp-action="Login" asp-controller="Account" asp-route-role="Doctor" class="btn" style="background-color: #ffffff; color: #0474cc;">Doctor</a>
         </div>
     </div>
 </div>

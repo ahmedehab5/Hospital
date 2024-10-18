@@ -70,7 +70,7 @@ namespace Hospital.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(adminUser, "Admin");
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Admin");
                 }
 
                 foreach (var error in result.Errors)
@@ -294,14 +294,6 @@ namespace Hospital.Controllers
 
 
 
-
-
-        //      [HttpGet]
-        //public IActionResult AccessDenied()
-        //{
-        //	ViewBag.Message = "You do not have permission to access this resource.";
-        //	return View();
-        //}
 
     }
 }

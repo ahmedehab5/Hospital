@@ -294,7 +294,7 @@ namespace Hospital.Controllers
             _context.Add(appointment);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index)); // Redirect to Index after saving
+            return RedirectToAction("UpcomingAppointmentsForPatient", "Appointment", new { patientId = appointment.PatientId }); // Redirect to Index after saving
         }
 
         #endregion
@@ -351,7 +351,7 @@ namespace Hospital.Controllers
                 {
                     _context.Update(appointment);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("UpcomingAppointmentsForDoctor", "Appointment", new { doctorId = appointment.DoctorId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -420,7 +420,7 @@ namespace Hospital.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("UpcomingAppointmentsForPatient", "Appointment", new { patientId = appointment.PatientId });
         }
         #endregion
        

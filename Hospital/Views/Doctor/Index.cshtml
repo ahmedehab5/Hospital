@@ -2,105 +2,162 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Admin&DoctorLayout.cshtml";
 }
+@* <link href="~/css/tablestylesheet.css" rel="stylesheet" /> *@
 
-<h1>Index</h1>
+<style>
+    table {
+        background-color: white;
+        width:100%
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkingDays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Specialization)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Salary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                Full Name
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
-                Phone
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkingDays)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Specialization.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
+    .table-rounded {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-rounded th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+    .table-rounded th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+    .custom-row th {
+        text-align: left; /* Center text in header */
+        background-color: #cae0f1;
+        color: black;
+        font-weight: bold;
+        /* font-family:Arial, Helvetica, sans-serif */
+    }
+
+/*     #bbd7ec
+    #cae0f1
+ */
+
+    td {
+        text-align: left;
+    }
+
+    .container{
+        max-width: 92%
+    }
+
+</style>
+
+
+
+
+<div class="container mt-5 ">
+
+    <h3>Doctors</h3>
+    <br/>
+    <p>
+        <a asp-action="Create" class="btn" style="background-color:#0474cc; color:white">Add Doctor</a>
+    </p>
+    <br />
+
+    <div class="card-body">
+        <table class="table table-striped table-hover table-rounded">
+            <thead class="custom-row">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkingDays)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Specialization)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Salary)
+                    </th>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+
+                    <th>Details</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+
+
+            <tbody>
                 @{
-                    string imageSrc = item.Image == null ? "/images/Doctor.png" : $"data:image/jpeg;base64,{Convert.ToBase64String(item.Image)}";
-                    //tag that has the image with max width 50px
+                    if (Model.Count() > 0){
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.WorkingDays)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Specialization.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Salary)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Age)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gender)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+
+                                <td><a asp-action="Details" asp-route-id="@item.Id" class="text-info"><i class="fas fa-eye"></i></a></td>
+                                <td><a asp-action="Edit" asp-route-id="@item.Id" class="text-warning"><i class="fas fa-edit"></i></a></td>
+                                <td><a asp-action="Delete" asp-route-id="@item.Id" class="text-danger"><i class="fas fa-trash"></i></a></td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <div class="mt-5 alert alert-warning">
+                            <h3>No Doctors</h3>
+                        </div>
+                    }
                 }
-                <img class="img-thumbnail" style="max-width : 100px" src=@imageSrc alt="Not Assigned" />
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+                
+            </tbody>
+        </table>
+
+    </div>
+</div>

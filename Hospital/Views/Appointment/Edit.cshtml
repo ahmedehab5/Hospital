@@ -1,12 +1,14 @@
-﻿@model Hospital.Models.Appointment
+﻿@using System.Security.Claims
+@model Hospital.Models.Appointment
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Admin&DoctorLayout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Edit Appointment</h1>
 
-<h4>Appointment</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -76,7 +78,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="UpcomingAppointmentsForDoctor" asp-controller="Appointment" asp-route-doctorId="@User.FindFirstValue(ClaimTypes.NameIdentifier)" class="btn btn-outline-secondary">Cancel</a>
 </div>
 
 @section Scripts {

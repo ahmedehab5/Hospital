@@ -7,7 +7,7 @@
 	Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
-
+<link href="~/css/layoutstylesheet.css" rel="stylesheet" />
 
 <div class="main-agileinfo">
 	<div class="agileits-top">
@@ -31,22 +31,9 @@
 			<br />
 
 
-			@* <div class="wthree-text">
-				<label class="anim">
-					<input asp-for="RememberMe" class="checkbox">
-					<span>Remember Me</span>
-				</label>
-				<div class="clear"> </div>
-			</div> *@
-
-
-
 			<input type="submit" value="LOGIN">
 		</form>
 
-		@* <p>Don't have an Account? <a asp-action="Register"> Register Now</a></p>
-		<br />
-		<p><a asp-action="ForgetPassword">Forget Password?</a></p> *@
 
 		@if (ViewBag.Role == "Patient")
 		{

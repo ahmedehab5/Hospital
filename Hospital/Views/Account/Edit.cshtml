@@ -1,9 +1,12 @@
 ﻿@using Hospital.ViewModels
+@using System.Security.Claims
 @model Patient
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_PatientLayout2.cshtml";
+
+
 }
 
 <h1>Edit</h1>
@@ -41,8 +44,8 @@
 
 
 
-        <input type="submit" value="Save" class="btn btn-primary" />
-        <a asp-action="Index" asp-controller="Home" class="btn btn-light">Back to list</a>
+        <input type="submit" value="Save" class="btn" style="background-color:#0474cc; color:white" />
+        <a asp-action="Details" asp-controller="Account" asp-route-patientId="@User.FindFirstValue(ClaimTypes.NameIdentifier)" class="btn btn-outline-secondary">Back</a>
 
 
     </div>

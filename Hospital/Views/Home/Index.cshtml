@@ -1,8 +1,60 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Hospital.Models.Appointment
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-   
+<!-- Main Body Section -->
+<div class="row align-items-center">
+    <div class="col-md-6 text-section">
+        <h6 class="text-uppercase text-primary mb-2">EUSMOD TEMPOR INCIDIDUNT</h6>
+        <h1 class="display-4 font-weight-bold">Take the world's best quality Treatment</h1>
+        <p class="mt-4 mb-4 text-muted">We offer top-notch aesthetic treatments tailored to meet your specific needs. Experience unparalleled care from the world's best professionals.</p>
+        <a href="#" class="btn btn-primary btn-lg rounded-pill">Contact Us</a>
+    </div>
+    <div class="col-md-6">
+        <img src="~/images/young-handsome-physician-medical-robe-with-stethoscope.jpg" alt="Treatment Image" class="img-fluid rounded shadow-lg" />
+       @*  <img src="" alt="Treatment Image" class="img-fluid rounded shadow-lg"> *@
+    </div>
+</div>
+
+<!-- Request for Consultation Form -->
+<div class="consultation-form bg-light p-5 mt-5 shadow rounded">
+    <h3 class="text-dark mb-4">Book your <span class="text-primary">Appointment</span> now</h3>
 
 </div>
+
+
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-us mt-5 py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Why Choose Us?</h2>
+            <p class="text-muted">Offering the best aesthetic treatments from professionals with over 30 years of experience.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="icon-box text-center shadow rounded p-4 bg-white">
+                    <i class="fas fa-user-md fa-3x text-primary mb-3"></i>
+                    <h5>Experienced Doctors</h5>
+                    <p>Our doctors are highly qualified and experienced in various cosmetic treatments.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="icon-box text-center shadow rounded p-4 bg-white">
+                    <i class="fas fa-medkit fa-3x text-primary mb-3"></i>
+                    <h5>Advanced Facilities</h5>
+                    <p>We provide top-tier facilities with cutting-edge technology to ensure the best results.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="icon-box text-center shadow rounded p-4 bg-white">
+                    <i class="fas fa-smile fa-3x text-primary mb-3"></i>
+                    <h5>Customer Satisfaction</h5>
+                    <p>Your satisfaction is our priority, ensuring every client receives exceptional care.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

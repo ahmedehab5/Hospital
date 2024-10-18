@@ -1,13 +1,17 @@
-﻿@model Hospital.Models.Appointment
+﻿@using System.Security.Claims
+@model Hospital.Models.Appointment
 
 @{
     ViewData["Title"] = "Details";
+    // Layout = "~/Views/Shared/_DoctorLayout2.cshtml";
+    Layout = "~/Views/Shared/_Admin&DoctorLayout.cshtml";
+    
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>Appointment</h4>
+    @* <h4>Appointment</h4> *@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -16,38 +20,45 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Doctor.FirstName) @Html.DisplayFor(model => model.Doctor.LastName)
         </dd>
+        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Patient)
         </dt>
         <dd class = "col-sm-10">
         @Html.DisplayFor(model => model.Patient.FirstName) @Html.DisplayFor(model => model.Patient.LastName)
-    </dd>
+        </dd>
+       
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Specialization)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Specialization)
         </dd>
+       
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Diagnosis)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Diagnosis)
         </dd>
+        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Treatment)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Treatment)
         </dd>
+        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Date)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Date)
         </dd>
+
     </dl>
+
 </div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+

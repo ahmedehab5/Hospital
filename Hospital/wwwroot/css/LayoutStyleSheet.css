@@ -1,0 +1,193 @@
+﻿header {
+    background-color: #0474cc;
+}
+
+.custom-icon {
+    color: #0474cc; /* Replace #FF0000 with your desired hex color */
+}
+
+
+/*#this {
+    background-image: url('../images/young-handsome-physician-medical-robe-with-stethoscope.jpg');
+    background-size: cover;*/ /* Ensures the image covers the entire div */
+    /*background-position: center;*/ /* Centers the image */
+    /*background-repeat: no-repeat;
+}*/
+
+
+/*footer {
+    background-color: #0474cc;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    padding-top: 10px;
+    text-align: center;
+    color: white;
+}*/
+html, body {
+    height: 100%;
+}
+body {
+    background-color: #f9f9f9;
+    /*font-family: 'Poppins', sans-serif;*/
+    color: #2e323c;
+
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+
+}
+
+#this {
+    background-image: url('../images/young-handsome-physician-medical-robe-with-stethoscope.jpg');
+    background-size: cover; /* Cover the entire div */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-position: center; /* Center the image */
+    height: 400px; /* Set a height for the div */
+    width: 100%; /* Set width to 100% or a specific width */
+}
+
+footer {
+    position: relative;
+
+}
+
+.container {
+    flex: 1;
+}
+
+footer {
+    position: relative;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: bold;
+}
+
+.text-section h1 {
+    font-size: 2.5rem;
+}
+
+.text-section h6 {
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.text-section p {
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #007ae1;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #005bb5;
+    }
+
+.consultation-form {
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+    .consultation-form h3 span {
+        color: #007ae1;
+    }
+
+.form-control {
+    height: 45px;
+    border-radius: 5px;
+}
+
+.icon-box {
+    transition: transform 0.3s ease;
+}
+
+    .icon-box:hover {
+        transform: scale(1.05);
+    }
+
+.why-choose-us {
+    background-color: #f5f6fa;
+}
+
+    .why-choose-us h2 {
+        font-size: 2rem;
+    }
+
+    .why-choose-us .icon-box i {
+        color: #007ae1;
+    }
+
+.icon-box p {
+    color: #6c757d;
+}
+
+/**-------------------------------------------------------*/
+
+/* Custom CSS for better aesthetics */
+
+    /* Gradient background */
+    .bg-gradient {
+        background: linear-gradient(45deg, #007bff, #6a82fb); /* Blue gradient */
+    }
+
+    /* Navbar box shadow */
+    .box-shadow {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+/*.nav-item {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:red
+}*/
+/* Navbar link hover effect */
+.nav-link {
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    padding: 0.5rem 1rem;
+}
+
+    .nav-link:hover {
+        color: #ffdd57; /* Golden yellow hover effect */
+        transform: scale(1.1); /* Slight scaling for emphasis */
+    }
+
+    /* Active link styling */
+    .nav-link.active {
+        font-weight: bold;
+        border-bottom: 2px solid #ffdd57; /* Yellow underline for active page */
+    }
+
+    /* Button styling for logout */
+    .btn-outline-light {
+        padding: 0.4rem 1rem;
+        border: 2px solid #fff;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #ffdd57;
+        color: #000;
+        border-color: #ffdd57;
+    }
+
+    /* Media query for mobile responsiveness */
+    @media (max-width: 768px) {
+        .navbar-nav {
+            text-align: center;
+        }
+
+        .nav-link {
+            padding: 1rem;
+        }
+    }

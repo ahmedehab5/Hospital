@@ -23,47 +23,7 @@ namespace Hospital.Controllers
         }
 
 
-        //[HttpGet]
-        //public async Task<IActionResult> Details(string? id)
-        //{
-        //    var user = await _userManager.GetUserAsync(User);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    var model = new ProfileViewModel
-        //    {
-        //        FirstName = user.FirstName,
-        //        LastName = user.LastName,
-        //        Email = user.Email,
-        //        PhoneNumber = user.PhoneNumber,
-        //        Image = user.Image 
-        //    };
-
-        //    return View(model);
-        //}
-
-        //[Authorize]
-
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> Details(string? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
-
-        //    var user = await _userManager.FindByIdAsync(id);
-
-        //    if (user == null)
-        //        return NotFound();
-
-        //    return View(user);
-        //}
-
-
-        //[Authorize]  // Ensure only logged-in users can access this
         [HttpGet]
         public async Task<IActionResult> Details(string? id)
         {
@@ -79,18 +39,7 @@ namespace Hospital.Controllers
         }
 
 
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(string? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
-        //    var user = await _userManager.FindByIdAsync(id);
-
-        //    if (user == null)
-        //        return NotFound();
-        //    return View(user);
-
-        //}
+      
         [HttpGet]
         public async Task<IActionResult> Edit(string? id)
         {
@@ -120,46 +69,7 @@ namespace Hospital.Controllers
 
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(ProfileViewModel model)
-        //{
-
-
-        //    try
-        //    {
-        //        var existingPatient = await _userManager.FindByIdAsync(model.Id);
-        //        if (existingPatient == null)
-        //        {
-        //            return NotFound(); // If patient doesn't exist
-        //        }
-
-        //        existingPatient.FirstName = model.FirstName;
-        //        existingPatient.LastName = model.LastName;
-        //        existingPatient.Email = model.Email;
-        //        existingPatient.Age = model.Age;
-        //        existingPatient.PhoneNumber = model.PhoneNumber;
-
-        //        var result = await _userManager.UpdateAsync(existingPatient);
-
-        //        if (result.Succeeded)
-        //        {
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        else
-        //        {
-        //            foreach (var error in result.Errors)
-        //            {
-        //                ModelState.AddModelError(string.Empty, error.Description);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError(string.Empty, ex.Message);
-        //    }
-        //    return View(model);
-        //}
-
+      
         [HttpPost]
         public async Task<IActionResult> Edit(Patient patient)
         {
@@ -173,16 +83,16 @@ namespace Hospital.Controllers
 
                 user.FirstName = patient.FirstName;
                 user.LastName = patient.LastName;
-                user.Email = patient.Email;
+                //user.Email = patient.Email;
                 user.Age = patient.Age;
                 user.PhoneNumber = patient.PhoneNumber;
-                user.Gender = patient.Gender;
+                //user.Gender = patient.Gender;
 
                 var result = await _userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Details","Account",  new { id = user.Id });
                 }
                 else
                 {
@@ -231,7 +141,7 @@ namespace Hospital.Controllers
 				if (Result.Succeeded)
 				{ 
                     await _userManager.AddToRoleAsync(User, "Patient");
-                    return RedirectToAction("Login","Account");
+                    return RedirectToAction("ChooseRole","Home");
 				}
 				else 
 					foreach (var error in Result.Errors)
@@ -305,11 +215,11 @@ namespace Hospital.Controllers
                             
                             if (role == "Admin")
                             {
-                                return RedirectToAction("Index", "Admin"); 
+                                return RedirectToAction("Index", "Admin", new { AdminId = user.Id }); 
                             }
                             else if (role == "Patient")
                             {
-                                return RedirectToAction("Index", "Home", new { PatientId = user.Id }); 
+                                return RedirectToAction("Create", "Appointment", new { PatientId = user.Id }); 
                             }
                             else if (role == "Doctor")
                             {
@@ -341,7 +251,7 @@ namespace Hospital.Controllers
         public async Task<IActionResult> Logout()
 		{
 			await _signInManager.SignOutAsync();
-			return RedirectToAction("Login");
+			return RedirectToAction("ChooseRole","Home");
 		}
 
 

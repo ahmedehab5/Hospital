@@ -2,56 +2,98 @@
 @{
 
     ViewData["Title"] = "All Patients";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Admin&DoctorLayout.cshtml";
 }
 
-<h1>All Patients</h1>
-<br/>
 
-<a asp-action="Create" class="btn btn-success">Create Patient</a>
-<br/>
+<style>
+    table {
+        background-color: white;
+        width: 100%
+    }
+
+    .table-rounded {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .table-rounded th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .table-rounded th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+    .custom-row th {
+        text-align: left; /* Center text in header */
+        background-color: #cae0f1;
+        color: black;
+        /* font-family: Arial, Helvetica, sans-serif  */
+        font-weight:bold;
+    }
+
+    /*     #bbd7ec
+            #cae0f1
+         */
+
+    td {
+        text-align: left;
+    }
+
+    .container {
+        max-width: 92%
+    }
+
+</style>
+
 @{
     if (Model.Count() > 0)
     {
-       
-        <br/>
-        <table class="table table-striped table-hover mt-3">
+       <div class="container mt-5 ">
+            <h3>Patients</h3>
+            <br/>
 
-            <thead>
-                <tr>
-                    <td>Id</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Email</td>
-                    <td>Phone Number</td>
-                    <td>Age</td>                  
-                    <td>Gender</td>
-                    <td>Details</td>
-                    @*<td>Update</td>
-                    <td>Delete</td>*@
+            <div class="card-body">
+                <table class="table table-striped table-hover table-rounded">
 
-                </tr>
-            </thead>
+                    <thead class="custom-row">
+                        <tr>
+                            <th>Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Details</th>
+                            
 
-            <tbody>
-                @foreach(var patient in Model)
-                {
-                    <tr>
-                        <td>@patient.Id</td>
-                        <td>@patient.FirstName</td>
-                        <td>@patient.LastName</td>
-                        <td>@patient.Email</td>
-                        <td>@patient.PhoneNumber</td>                      
-                        <td>@patient.Age</td>
-                        <td>@patient.Gender</td>
-                        <td><a asp-action="Details" asp-route-id="@patient.Id" class="text-info"><i class="fas fa-eye"></i></a></td>
-                        @*<td><a asp-action="Edit" asp-route-id="@patient.Id" class="text-warning"><i class="fas fa-edit"></i></a></td>
-                        <td><a asp-action="Delete" asp-route-id="@patient.Id" class="text-danger"><i class="fas fa-trash"></i></a></td>*@
-                    </tr>
-                }
-            </tbody>
+                        </tr>
+                    </thead>
 
-        </table>
+                    <tbody>
+                        @foreach (var patient in Model)
+                        {
+                            <tr>
+                                <td>@patient.Id</td>
+                                <td>@patient.FirstName</td>
+                                <td>@patient.LastName</td>
+                                <td>@patient.Email</td>
+                                <td>@patient.PhoneNumber</td>
+                                <td>@patient.Age</td>
+                                <td>@patient.Gender</td>
+                                <td><a asp-action="Details" asp-route-id="@patient.Id" class="text-info"><i class="fas fa-eye"></i></a></td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+       </div>
+        
+        
     }
     else
     {

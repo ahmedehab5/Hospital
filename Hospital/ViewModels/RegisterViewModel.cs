@@ -42,7 +42,7 @@ namespace Hospital.ViewModels
 
 
 		[Required(ErrorMessage = "Password is Required")]
-		//[DataType(DataType.Password)] //must contain upper,lower,digit....so on
+		[DataType(DataType.Password)] //must contain upper,lower,digit....so on
 		public string Password { get; set; }
 
 

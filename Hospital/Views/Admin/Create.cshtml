@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "CreateAdmin";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Admin&DoctorLayout.cshtml";
 }
 
 
@@ -22,7 +22,7 @@
         <br />
 
         <label class="col-form-table" asp-for="Password">Password </label>
-        <input class="form-control" asp-for="Password" required="">
+        <input type="password" class="form-control" asp-for="Password" required="">
         <span asp-validation-for="Password" style="color:red"></span>
         <br />
 
@@ -59,7 +59,7 @@
 
 
         <input type="submit" value="Create" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-light">Back to list</a>
+        <a asp-action="Index" class="btn btn-light">Back</a>
 
 
     </div>

@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Admin&DoctorLayout.cshtml";
 }
 
 <h1>Edit @Model.UserName</h1>
@@ -32,11 +32,6 @@
         <br />
 
 
-        @*  <label class="col-form-table" asp-for="PasswordHash">password </label>
-        <input class="form-control" type="password" asp-for="PasswordHash" required="">
-        <span asp-validation-for="PasswordHash" style="color:red"></span>
-        <br /> *@
-
 
         <label class="col-form-table" asp-for="PhoneNumber">Phone Number </label>
         <input class="form-control" title="Please enter exactly 11 digits." maxlength="11" pattern="^\d{11}$" asp-for="PhoneNumber" required>
@@ -57,7 +52,7 @@
 
 
         <input type="submit" value="Save" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-light">Back to list</a>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
 
 
     </div>

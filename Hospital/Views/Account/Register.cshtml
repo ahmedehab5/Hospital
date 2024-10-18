@@ -6,7 +6,7 @@
 	ViewData["Title"] = "Register";
 	Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
-
+@* <link href="~/css/AuthStyleSheet.css" rel="stylesheet" /> *@
 
 
 
@@ -32,14 +32,15 @@
 			<br />
 
 
-
-
-			<label for="Gender">Gender:</label>
-			<select type="text" asp-for="Gender" asp-items="Html.GetEnumSelectList<Hospital.Models.Gender>()" required>
-			</select>
-			<span asp-validation-for="Gender" style="color:red"></span>
-			<br />
-			<br />
+			
+				<select class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<Hospital.Models.Gender>()" required>
+				<option value="" disabled selected>Gender</option>
+				</select>
+				<span asp-validation-for="Gender" style="color:red"></span>
+				<br />
+				
+			
+			
 
 
 			<input type="text" asp-for="PhoneNumber" placeholder="Phone Number" required="">
@@ -76,7 +77,7 @@
 
 			<input type="submit" value="REGISTER">
 		</form>
-		<p>Do you have an Account? <a asp-action="Login"> Login Now</a></p>
+		<p>Do you have an Account? <a asp-action="ChooseRole" asp-controller="Home"> Login Now</a></p>
 
 	</div>
 </div>

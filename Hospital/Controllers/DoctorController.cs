@@ -239,7 +239,7 @@ namespace Hospital.Controllers
                     throw;
                 }
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("DetailsUser","Doctor", new {doctorId=user.Id});
         }
 
         // GET: Doctor/Delete/5

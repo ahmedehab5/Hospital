@@ -4,59 +4,68 @@
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+     Layout = "~/Views/Shared/_PatientLayout2.cshtml";
+
 }
 
-<h1>Details</h1>
+
+    <h1>Details</h1>
+    <hr />
+
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            First Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt class="col-sm-2">
+            Last Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            Email
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt class="col-sm-2">
+            Phone Number
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+
+        <dt class="col-sm-2">
+            Gender
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+
+        <dt class="col-sm-2">
+            Age
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+
+    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn" style="background-color:#0474cc; color:white">Edit Profile</a>
 
 
 
 
 
-<div class="form-group">
 
-    <label class="col-form-table" asp-for="Id">Id </label>
-    <input readonly class="form-control" asp-for="Id" required="">
-    <br />
-
-
-    <label class="col-form-table" asp-for="FirstName">First Name </label>
-    <input readonly class="form-control" asp-for="FirstName" required="">
-    <br />
-
-
-    <label class="col-form-table" asp-for="LastName">Last Name </label>
-    <input readonly class="form-control" asp-for="LastName" required="">
-    <br />
-
-
-    <label class="col-form-table" asp-for="Email">Email </label>
-    <input readonly class="form-control" type="email" asp-for="Email" required="">
-    <br />
-
-
-    <label class="col-form-table" asp-for="PhoneNumber">Phone Number </label>
-    <input readonly class="form-control" title="Please enter exactly 11 digits." maxlength="11" pattern="^\d{11}$" asp-for="PhoneNumber" required>
-    <br />
-
-
-    <label class="col-form-table" asp-for="Gender">Gender </label>
-    <select disabled class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<Hospital.Models.Gender>()" required> </select>
-    <br />
-
-
-
-    <div class="form-group">
-        <label asp-for="Age" class="control-label">Age</label>
-        <input readonly asp-for="Age" class="form-control" type="number" id="age" readonly required />
-    </div>
-    <br />
-
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
-    <a asp-action="Index" class="btn btn-light">Back to list</a>
-
-
-</div>
 
 
 

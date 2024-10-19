@@ -784,3 +784,4 @@ D:\patient2\Hospital\obj\Debug\net8.0\refint\Hospital.dll
 D:\patient2\Hospital\obj\Debug\net8.0\Hospital.pdb
 D:\patient2\Hospital\obj\Debug\net8.0\Hospital.genruntimeconfig.cache
 D:\patient2\Hospital\obj\Debug\net8.0\ref\Hospital.dll
+D:\patient2\Hospital\bin\Debug\net8.0\Microsoft.AspNet.Identity.Core.dll

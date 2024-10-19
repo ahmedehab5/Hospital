@@ -63,7 +63,11 @@
        
     </dl>
 
-    <input type="submit" value="Delete" class="btn btn-danger" />
-    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+
 </div>
 
+<form asp-action="Delete">
+    @* <input type="hidden" asp-for="Id" /> *@
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+</form>

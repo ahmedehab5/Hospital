@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VErs3uUbTRTS1UqNkdHoDusUvozGtyHH59Yw2lyrH2M=",
+  "Hash": "+BkP7jij+2OPZUstshCngYBeFZ5aw/lFcZrUdEUFYLM=",
   "Source": "Hospital",
   "BasePath": "_content/Hospital",
   "Mode": "Default",
@@ -110,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\patient2\\Hospital\\wwwroot\\images\\dr1.png",
+      "SourceId": "Hospital",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\patient2\\Hospital\\wwwroot\\",
+      "BasePath": "_content/Hospital",
+      "RelativePath": "images/dr1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\dr1.png"
     },
     {
       "Identity": "D:\\patient2\\Hospital\\wwwroot\\images\\s3.jpg",

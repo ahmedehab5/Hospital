@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\patient2\\Hospital\\wwwroot\\images\\dr1.png",
+      "PackagePath": "staticwebassets\\images\\dr1.png"
+    },
+    {
       "Id": "D:\\patient2\\Hospital\\wwwroot\\images\\s3.jpg",
       "PackagePath": "staticwebassets\\images\\s3.jpg"
     },

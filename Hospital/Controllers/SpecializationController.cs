@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hospital.Contexts;
 using Hospital.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital.Controllers
 {
@@ -20,6 +21,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Specialization
+        
         public async Task<IActionResult> Index()
         {
             return View(await _context.Specializations.ToListAsync());

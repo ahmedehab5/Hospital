@@ -143,6 +143,10 @@
                         <span asp-validation-for="PatientId" class="text-danger"></span>
                     </div>
 
+
+
+
+
                     <div class="form-group">
                         <label asp-for="Date" class="control-label"></label>
                         <input asp-for="Date" class="form-control" type="date" id="Date" readonly />
@@ -150,15 +154,39 @@
                         <span asp-validation-for="Date" class="text-danger"></span>
                     </div>
 
+
+
+                    @* <input type="date" id="Date" name="Date" /> *@
+
+                   @*  <select id="Slot" name="Slot">
+                        <option value="">Select a time slot</option>
+                        <!-- Slots will be populated here -->
+                    </select> *@
+
+
+                    <div class="form-group">
+                        <label class="control-label">Time Slot</label>
+                        <select id="Slot" name="Slot" class="form-control">
+                            <option value="">Select a time slot</option>
+                            <!-- Slots will be populated here -->
+                        </select>
+                    </div>
+
+
                     <div class="form-group">
                         <br />
                         <input type="submit" value="Book" class="btn btn-block" style="background-color:#0474cc; color:white" />
                     </div>
                 </form>
+
+
+
             </div>
         </div>
     </div>
 </div>
+
+
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -216,22 +244,24 @@
                     var nextDate = getNextDate(today, dayOfWeek); // Calculate the next date for the selected day
                     $('#Date').val(nextDate.toISOString().slice(0, 10)); // Update the date input to show only the date
                     $('#HiddenDate').val(nextDate.toISOString()); // Update the hidden input with full datetime
+
+                    // Fetch available slots when the working day is selected
+                    var doctorId = $('#DoctorId').val();
+                    if (doctorId) {
+                        $.get('/Appointment/GetAvailableSlots', { doctorId: doctorId, selectedDate: $('#Date').val() }, function (data) {
+                            $('#Slot').empty(); // Clear previous options
+
+                            if (data && data.length > 0) {
+                                $.each(data, function (index, value) {
+                                    $('#Slot').append('<option value="' + value + '">' + value + '</option>');
+                                });
+                            } else {
+                                $('#Slot').append('<option>No available slots</option>');
+                            }
+                        });
+                    }
                 }
             });
-
-            // Update the hidden date input with the full datetime when the visible date input changes
-            function updateHiddenDate() {
-                var dateInput = $('#Date').val();
-                var selectedDay = $('#WorkingDay').val();
-                var today = new Date(dateInput);
-                if (selectedDay) {
-                    var dayOfWeek = getDayIndex(selectedDay); // Get the index of the selected day
-                    var nextDate = getNextDate(today, dayOfWeek); // Calculate the next date for the selected day
-                    var hours = 9; // Set your desired hour here (e.g., 09:00 AM)
-                    nextDate.setHours(hours, 0, 0, 0); // Set the time to 09:00 AM
-                    $('#HiddenDate').val(nextDate.toISOString()); // Update the hidden input
-                }
-            }
 
             function getDayIndex(day) {
                 switch (day) {

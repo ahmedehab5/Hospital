@@ -21,7 +21,7 @@ namespace Hospital.Controllers
         }
 
 
-        //[Authorize(Roles ="Admin")]
+    
         public async Task<IActionResult> Index()
         {
             var roles = await _roleManager.Roles.ToListAsync();

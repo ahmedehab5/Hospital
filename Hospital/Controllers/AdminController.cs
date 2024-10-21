@@ -21,6 +21,8 @@ namespace Hospital.Controllers
 			_signInManager = signInManager;
 		}
 
+
+   
         public IActionResult Index()
         {
             var admins = _userManager.Users.OfType<Admin>().ToList();

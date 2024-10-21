@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Hospital.Contexts;
 using Hospital.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital.Controllers
 {
@@ -25,6 +26,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Doctor
+     
         public async Task<IActionResult> Index()
         {
             var hospitalDBContext = _context.Doctors.Include(d => d.Specialization);
@@ -125,9 +127,13 @@ namespace Hospital.Controllers
             return View(doctor);
         }
 
+
         // POST: Doctor/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+        #region old httpost edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("UserName,WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,PhoneNumber,Gender,PasswordHash,Email,Image")] Doctor doctor)
@@ -146,7 +152,7 @@ namespace Hospital.Controllers
                     doctor.Agree = true;
                     doctor.LockoutEnabled = true;
                     doctor.NormalizedEmail = doctor.Email.ToUpper();
-                    
+
                     string oldPassword = _context.Doctors.AsNoTracking().FirstOrDefault(d => d.Id == id).PasswordHash;
                     if (doctor.PasswordHash != oldPassword)
                     {
@@ -159,7 +165,7 @@ namespace Hospital.Controllers
                         _context.Update(doctor);
                         await _context.SaveChangesAsync();
                     }
-                   
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -182,6 +188,61 @@ namespace Hospital.Controllers
             ViewData["WeekDays"] = daysList; // Pass the list of days directly
             return View(doctor);
         }
+        #endregion
+
+
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(string id, [Bind("UserName,WorkingDays,StartTime,EndTime,SpecializationId,Salary,Id,FirstName,LastName,Age,PhoneNumber,Gender,Image")] Doctor doctor)
+        //{
+        //    if (id != doctor.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    // Handle the image data as you currently do
+        //    string? ImageData = Request.Form["ImageData"];
+        //    doctor.Image = ImageData != "" ? ImageData.Split(',').Select(byte.Parse).ToArray() : null;
+
+        //    if (ModelState.IsValid) // Ensure this is uncommented to validate the model
+        //    {
+        //        try
+        //        {
+        //            // Set ConcurrencyStamp to ensure that updates respect the latest data
+        //            doctor.ConcurrencyStamp = _context.Doctors.AsNoTracking().FirstOrDefault(d => d.Id == id).ConcurrencyStamp;
+
+        //            // Update doctor without handling password
+        //            _context.Update(doctor);
+        //            await _context.SaveChangesAsync();
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!DoctorExists(doctor.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //    }
+
+        //    ViewData["SpecializationId"] = new SelectList(_context.Specializations, "Id", "Id", doctor.SpecializationId);
+        //    var daysList = Enum.GetValues(typeof(WeekDays))
+        //                .Cast<WeekDays>()
+        //                .Select(d => new { Id = (int)d, Name = d.ToString() })
+        //                .ToList();
+        //    ViewData["WeekDays"] = daysList; // Pass the list of days directly
+        //    return View(doctor);
+        //}
+
+
+
+
 
         public async Task<IActionResult> EditUser(string? id)
         {

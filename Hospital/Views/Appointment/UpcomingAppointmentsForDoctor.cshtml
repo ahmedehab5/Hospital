@@ -68,7 +68,7 @@
                         <tr>
                             <td>@appointment.Patient?.FirstName @appointment.Patient?.LastName</td>
                             <td>@appointment.Specialization</td>
-                            <td>@appointment.Date.ToString("g")</td>
+                            <td>@appointment.Date.ToString("yyyy-MM-dd")</td>
 
                             <td><a asp-action="Details" asp-route-id="@appointment.Id" class="text-info"><i class="fas fa-eye"></i></a></td>
                             <td><a asp-action="Edit" asp-route-id="@appointment.Id" class="text-warning"><i class="fas fa-edit"></i></a></td>

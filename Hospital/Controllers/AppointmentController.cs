@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hospital.Contexts;
 using Hospital.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital.Controllers
 {
@@ -20,7 +21,9 @@ namespace Hospital.Controllers
         }
 
         #region Get All Appointments
+
         // GET: Appointment
+     
         public async Task<IActionResult> Index()
         {
             var appointments = await _context.Appointments
@@ -82,7 +85,7 @@ namespace Hospital.Controllers
 
             // Retrieve past appointments for the patient (appointments before today)
             var appointments = _context.Appointments
-                .Where(a => a.PatientId == patientId && a.Date < DateTime.Now) // Filter out future appointments
+                .Where(a => a.PatientId == patientId && a.Date < DateOnly.FromDateTime(DateTime.Now.Date)) // Filter out future appointments
                 .Include(a => a.Doctor) // Include doctor details
                 .OrderByDescending(a => a.Date)
                 .ToList();
@@ -112,7 +115,7 @@ namespace Hospital.Controllers
 
             // Retrieve upcoming appointments for the patient
             var appointments = _context.Appointments
-                .Where(a => a.PatientId == patientId && a.Date >= DateTime.Now) // Show only future appointments
+                .Where(a => a.PatientId == patientId && a.Date >= DateOnly.FromDateTime(DateTime.Now.Date)) // Show only future appointments
                 .Include(a => a.Doctor) // Include doctor details
                 .OrderBy(a => a.Date)
                 .ToList();
@@ -143,7 +146,7 @@ namespace Hospital.Controllers
 
             // Retrieve appointments for the doctor that are before today
             var appointments = _context.Appointments
-                .Where(a => a.DoctorId == doctorId && a.Date < DateTime.Now) // Show only past appointments
+                .Where(a => a.DoctorId == doctorId && a.Date < DateOnly.FromDateTime(DateTime.Now.Date)) // Show only past appointments
                 .Include(a => a.Patient) // Include patient details
                 .OrderByDescending(a => a.Date)
                 .ToList();
@@ -155,6 +158,10 @@ namespace Hospital.Controllers
         }
 
         #endregion
+
+
+
+
 
         #region UpcomingAppointmentsForDoctor
         [HttpGet]
@@ -173,7 +180,7 @@ namespace Hospital.Controllers
 
             // Retrieve upcoming appointments for the doctor
             var appointments = _context.Appointments
-                .Where(a => a.DoctorId == doctorId && a.Date >= DateTime.Now) // Show only future appointments
+                .Where(a => a.DoctorId == doctorId && a.Date >= DateOnly.FromDateTime(DateTime.Now.Date)) // Show only future appointments
                 .Include(a => a.Patient) // Include patient details
                 .OrderBy(a => a.Date)
                 .ToList();
@@ -187,57 +194,70 @@ namespace Hospital.Controllers
         #endregion
 
         #region MakeAppointment(PatientSide)
+
+        [Authorize(Roles ="Patient")]
         public IActionResult Create(string PatientId)
         {
-
-
             // Fetch specializations
             var specializations = _context.Specializations
-                .Select(s => new
-                {
-                    Id = s.Id,
-                    Name = s.Name
-                })
+                .Select(s => new { Id = s.Id, Name = s.Name })
                 .ToList();
-
             ViewData["Specialization"] = new SelectList(specializations, "Name", "Name");
 
             // Populate Patient full names
             var patients = _context.Patients
-                .Select(p => new
-                {
-                    Id = p.Id,
-                    FullName = p.FirstName + " " + p.LastName
-                })
+                .Select(p => new { Id = p.Id, FullName = p.FirstName + " " + p.LastName })
                 .ToList();
-            //ViewBag.PatientId = PatientId;
-            // Set the PatientId in the dropdown and select the patient passed via PatientId
             ViewData["PatientId"] = new SelectList(patients, "Id", "FullName", PatientId);
 
             return View();
         }
 
-        [HttpGet]
-        public JsonResult GetDoctorsBySpecialization(string specialization)
+        public async Task<IActionResult> GetAvailableSlots(string doctorId, DateOnly selectedDate)
         {
-            var doctors = _context.Doctors
-                .Where(d => d.Specialization.Name == specialization)
-                .Select(d => new
-                {
-                    Id = d.Id,
-                    FullName = d.FirstName + " " + d.LastName,
-                    WorkingDays = d.WorkingDays.ToString() // Assuming it returns a string format like "Saturday, Sunday"
-                })
-                .ToList();
+            // Retrieve the doctor by the ID
+            var doctor = await _context.Doctors.FindAsync(doctorId);
+            if (doctor == null)
+            {
+                return Json(new { error = "Doctor not found" });
+            }
 
-            return Json(doctors);
+            // Get the start and end times for the doctor
+            TimeOnly startTime = doctor.StartTime; // Assuming these are TimeOnly
+            TimeOnly endTime = doctor.EndTime; // Assuming these are TimeOnly
+
+            // Generate 20-minute slots between the start time and end time
+            List<string> availableSlots = new List<string>();
+            TimeSpan slotDuration = TimeSpan.FromMinutes(20);
+
+            // Loop to generate time slots
+            for (var time = startTime; time < endTime; time = time.Add(slotDuration))
+            {
+                string slot = $"{time.Hour:D2}:{time.Minute:D2} - {(time.Add(slotDuration).Hour):D2}:{(time.Add(slotDuration).Minute):D2}";
+                availableSlots.Add(slot);
+            }
+
+            // Check for existing appointments for that doctor on the selected date
+            var existingAppointments = await _context.Appointments
+              .Where(a => a.DoctorId == doctorId && a.Date == selectedDate) // Direct comparison
+              .ToListAsync();
+
+            // Remove any slots that have already been reserved
+            foreach (var appointment in existingAppointments)
+            {
+                availableSlots.Remove(appointment.Slot); // Ensure Slot is in the same format as generated above
+            }
+
+            return Json(availableSlots);
         }
+
+
 
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DoctorId,PatientId,Specialization,Diagnosis,Treatment,Date")] Appointment appointment)
+        public async Task<IActionResult> Create([Bind("Id,DoctorId,PatientId,Specialization,Diagnosis,Treatment,Date,Slot")] Appointment appointment)
         {
             // Check if the model is valid
             if (!ModelState.IsValid)
@@ -297,6 +317,22 @@ namespace Hospital.Controllers
             return RedirectToAction("UpcomingAppointmentsForPatient", "Appointment", new { patientId = appointment.PatientId }); // Redirect to Index after saving
         }
 
+        [HttpGet]
+        public JsonResult GetDoctorsBySpecialization(string specialization)
+        {
+            var doctors = _context.Doctors
+                .Where(d => d.Specialization.Name == specialization)
+                .Select(d => new
+                {
+                    Id = d.Id,
+                    FullName = d.FirstName + " " + d.LastName,
+                    WorkingDays = d.WorkingDays.ToString() // Assuming it returns a string format like "Saturday, Sunday"
+                })
+                .ToList();
+
+            return Json(doctors);
+        }
+
         #endregion
 
         #region Treatment&Diagnosis(DoctorSide)
@@ -338,7 +374,7 @@ namespace Hospital.Controllers
         // POST: Appointment/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DoctorId,PatientId,Specialization,Diagnosis,Treatment,Date")] Appointment appointment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DoctorId,PatientId,Specialization,Diagnosis,Treatment,Date,Slot")] Appointment appointment)
         {
             if (id != appointment.Id)
             {
@@ -360,6 +396,16 @@ namespace Hospital.Controllers
                         return NotFound();
                     }
                     ModelState.AddModelError(string.Empty, "Unable to save changes. The appointment was modified by another user.");
+                }
+            }
+            if (!ModelState.IsValid)
+            {
+                foreach (var state in ModelState)
+                {
+                    foreach (var error in state.Value.Errors)
+                    {
+                        Console.WriteLine($"Error in {state.Key}: {error.ErrorMessage}");
+                    }
                 }
             }
 
@@ -423,6 +469,22 @@ namespace Hospital.Controllers
             return RedirectToAction("UpcomingAppointmentsForPatient", "Appointment", new { patientId = appointment.PatientId });
         }
         #endregion
-       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

@@ -19,6 +19,7 @@ namespace Hospital.Controllers
         }
 
 
+      
         public IActionResult Index()
         {
             var patients = _userManager.Users.OfType<Patient>().ToList();

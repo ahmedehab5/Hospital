@@ -34,7 +34,7 @@
                             <tr>
                                 <td>@appointment.Doctor?.FirstName @appointment.Doctor?.LastName</td>
                                 <td>@appointment.Specialization</td>
-                                <td>@appointment.Date.ToString("g")</td>
+                            <td>@appointment.Date.ToString("yyyy-MM-dd")</td>
 
                                 <td><a asp-action="Details" asp-route-id="@appointment.Id" class="text-info"><i class="fas fa-eye"></i></a></td>
                                 <td><a asp-action="Delete" asp-route-id="@appointment.Id" class="text-danger"><i class="fas fa-trash"></i></a></td>

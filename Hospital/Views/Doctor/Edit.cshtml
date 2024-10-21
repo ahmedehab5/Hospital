@@ -96,11 +96,11 @@
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
 
-@*             <div class="form-group">
-                <label asp-for="PasswordHash" class="control-label"></label>
-                <input asp-for="PasswordHash" class="form-control" />
+            <div class="form-group">
+                @* <label asp-for="PasswordHash" class="control-label"></label> *@
+                <input type="hidden" asp-for="PasswordHash" class="form-control" />
                 <span asp-validation-for="PasswordHash" class="text-danger"></span>
-            </div> *@
+            </div>
 
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>

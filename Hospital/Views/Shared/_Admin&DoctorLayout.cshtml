@@ -19,6 +19,31 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="~/css/layoutstylesheet.css" rel="stylesheet" />
 </head>
+
+
+<style>
+    .nav-item {
+        margin-right: 15px; /* Adjust spacing between tabs */
+    }
+
+    .nav-link {
+        color: #ffffff; /* Text color for all links */
+        padding: 10px 15px; /* Increase padding for better spacing */
+        border-radius: 5px; /* Rounded edges for a cleaner look */
+    }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Light hover effect */
+        }
+
+        .nav-link.active {
+            background-color: #ffffff; /* White background for active tab */
+            color: #333; /* Darker text color for readability */
+            font-weight: bold;
+        }
+</style>
+
+
 <body>
 
     <!-- Navbar Section -->
@@ -45,19 +70,19 @@
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Doctor"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-normal" asp-area="" asp-controller="Doctor" asp-action="IndexUser" asp-route-doctorId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Home</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Doctor" asp-action="IndexUser" asp-route-doctorId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">HOME</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-normal" asp-area="" asp-controller="Appointment" asp-action="UpcomingAppointmentsForDoctor" asp-route-doctorId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Upcoming Appointments</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Appointment" asp-action="UpcomingAppointmentsForDoctor" asp-route-doctorId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">SCHEDULED</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-normal" asp-area="" asp-controller="Appointment" asp-action="HistoryForDoctor" asp-route-doctorId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">History</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Appointment" asp-action="HistoryForDoctor" asp-route-doctorId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">HISTORY</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-normal" asp-area="" asp-controller="Doctor" asp-action="DetailsUser" asp-route-doctorId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Profile</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Doctor" asp-action="DetailsUser" asp-route-doctorId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">PROFILE</a>
                             </li>
 
 
@@ -66,22 +91,22 @@
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Appointment" asp-action="Index">Appointments</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Appointment" asp-action="Index">APPOINTMENTS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Patient" asp-action="Index">Patients</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Patient" asp-action="Index">PATIENTS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Doctor" asp-action="Index">Doctors</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Doctor" asp-action="Index">DOCTORS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Specialization" asp-action="Index">Spetializations</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Specialization" asp-action="Index">SPECIALIZATIONS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Role" asp-action="Index">Roles</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Role" asp-action="Index">ROLES</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Admin" asp-action="Index">Admins</a>
+                                <a class="nav-link text-white fw-semibold" asp-area="" asp-controller="Admin" asp-action="Index">ADMINS</a>
                             </li>
                         }
 
@@ -92,7 +117,7 @@
                     <!-- Right-aligned Logout button -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-semibold btn" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            <a class="nav-link text-white fw-semibold btn" asp-area="" asp-controller="Account" asp-action="Logout">LOGOUT</a>
 
                         </li>
                     </ul>

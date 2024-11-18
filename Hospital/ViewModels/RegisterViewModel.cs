@@ -27,6 +27,9 @@ namespace Hospital.ViewModels
 		public Gender Gender { get; set; }
 
 
+		[Required]
+		public DateOnly DOB {  get; set; }
+
 
 		[Required(ErrorMessage = "Phone number is Required")]
 		[Phone]
@@ -55,7 +58,9 @@ namespace Hospital.ViewModels
 		public string ConfirmPassword { get; set; }
 
 
-		public bool Agree { get; set; }
+
+        [Required(ErrorMessage = "You must agree to terms and conditions.")]
+        public bool Agree { get; set; }
 		
 
 

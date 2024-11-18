@@ -34,6 +34,20 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Specialization)
         </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Slot)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Slot)
+        </dd>
        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Diagnosis)
@@ -49,23 +63,15 @@
             @Html.DisplayFor(model => model.Treatment)
         </dd>
         
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Slot)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Slot)
-        </dd>
 
     </dl>
 
 </div>
 
-@* <a asp-action="Index" class="btn btn-outline-secondary">Back</a> *@
+@if (User.IsInRole("Doctor"))
+{
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn" style="background-color:#0474cc; color:white">Edit</a>
+
+}
 

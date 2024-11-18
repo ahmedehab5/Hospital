@@ -58,6 +58,7 @@ namespace Hospital.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
+                DOB=user.DOB,
                 Age = user.Age,
                 PhoneNumber = user.PhoneNumber,
                 Gender = user.Gender
@@ -86,6 +87,7 @@ namespace Hospital.Controllers
                 //user.Email = patient.Email;
                 user.Age = patient.Age;
                 user.PhoneNumber = patient.PhoneNumber;
+                user.DOB=patient.DOB;
                 //user.Gender = patient.Gender;
 
                 var result = await _userManager.UpdateAsync(user);
@@ -131,6 +133,7 @@ namespace Hospital.Controllers
 					FirstName = model.FName,
 					LastName = model.LName, 
 					Agree = model.Agree,
+                    DOB=model.DOB,
 					Age = model.Age,
 					PhoneNumber = model.PhoneNumber,
 					Gender = model.Gender,

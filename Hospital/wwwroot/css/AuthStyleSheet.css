@@ -149,7 +149,7 @@ h1 {
 }
 
 
-input[type="text"], input[type="email"], input[type="password"], select {
+input[type="text"], input[type="email"], input[type="password"], select, input[type="date"] {
     font-size: 1em;
     color: #fff;
     font-weight: 500;
@@ -696,7 +696,7 @@ input.checkbox {
         padding: 1.8em;
     }
 
-    input[type="text"], input[type="email"], input[type="password"] {
+    input[type="text"], input[type="email"], input[type="password"], input[type="date"] {
         width: 91%;
     }
 
@@ -772,7 +772,7 @@ input.checkbox {
         margin: 0 0 1em;
     }
 
-    input[type="text"], input[type="email"], input[type="password"] {
+    input[type="text"], input[type="email"], input[type="password"], input[type="date"] {
         width: 89.5%;
         font-size: 0.85em;
     }

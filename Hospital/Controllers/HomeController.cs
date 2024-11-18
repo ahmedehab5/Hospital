@@ -37,8 +37,9 @@ namespace Hospital.Controllers
 		}
 
 
-        public IActionResult ChooseRole()
+        public IActionResult ChooseRole(string activeRole)
         {
+            ViewData["ActiveRole"] = activeRole;
             return View();
         }
 

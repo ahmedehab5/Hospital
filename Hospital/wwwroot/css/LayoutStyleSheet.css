@@ -152,21 +152,24 @@ h1, h2, h3, h4, h5 {
     color:red
 }*/
 /* Navbar link hover effect */
-.nav-link {
+/*.nav-link {
     transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
     padding: 0.5rem 1rem;
-}
+}*/
 
-    .nav-link:hover {
-        color: #ffdd57; /* Golden yellow hover effect */
-        transform: scale(1.1); /* Slight scaling for emphasis */
-    }
+    /*.nav-link:hover {
+        color: #ffdd57;*/ /* Golden yellow hover effect */
+        /*transform: scale(1.1);*/ /* Slight scaling for emphasis */
+    /*}*/
 
     /* Active link styling */
     .nav-link.active {
         font-weight: bold;
         border-bottom: 2px solid #ffdd57; /* Yellow underline for active page */
     }
+
+
+
 
     /* Button styling for logout */
     .btn-outline-light {
@@ -175,11 +178,11 @@ h1, h2, h3, h4, h5 {
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .btn-outline-light:hover {
+/*    .btn-outline-light:hover {
         background-color: #ffdd57;
         color: #000;
         border-color: #ffdd57;
-    }
+    }*/
 
     /* Media query for mobile responsiveness */
     @media (max-width: 768px) {

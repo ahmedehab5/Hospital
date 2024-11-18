@@ -88,7 +88,8 @@ using (var scope = app.Services.CreateScope())
             LastName = "Ali",
             PhoneNumber = "01177334466",
             Gender=Gender.Male,
-            Age=36
+			DOB = DateOnly.Parse("1988-08-09"),
+			Age =36
         };
         await userManager.CreateAsync(admin, AdminPassword);
         await userManager.AddToRoleAsync(admin, "Admin");
@@ -123,7 +124,8 @@ using (var scope = app.Services.CreateScope())
             WorkingDays = WeekDays.Sunday | WeekDays.Monday | WeekDays.Tuesday,
             Gender = Gender.Male,
             Age = 46,
-            Salary=9000,
+			DOB = DateOnly.Parse("1978-08-09"),
+			Salary =9000,
             StartTime = new TimeOnly(15, 0),  
             EndTime = new TimeOnly(23, 0)    
 
@@ -150,7 +152,8 @@ using (var scope = app.Services.CreateScope())
             FirstName = "Abdelrahman",
             LastName = "Ali",
             PhoneNumber = "01122554499",
-            Gender = Gender.Male,
+			DOB = DateOnly.Parse("2001-08-09"),
+			Gender = Gender.Male,
             Age=23
         };
         await userManager.CreateAsync(patient, PatientPassword);

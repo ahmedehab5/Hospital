@@ -21,15 +21,16 @@
 @*             <div class="form-group">
                 
             </div> *@
+            <input type="submit" value="Create" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
         </form>
     </div>
 </div>
 
-<div>
-    <input type="submit" value="Create" class="btn btn-primary" />
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-</div>
+@* <div>
 
+</div>
+ *@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

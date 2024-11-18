@@ -70,6 +70,41 @@ namespace Hospital.Controllers
         #region HistoryForPatient
         // GET: Appointment/History/Patient/{patientId}
         [HttpGet]
+        //public IActionResult HistoryForPatient(string patientId)
+        //{
+        //    // Retrieve patient information
+        //    var patient = _context.Patients
+        //        .Where(p => p.Id == patientId)
+        //        .Select(p => new { p.FirstName, p.LastName })
+        //        .FirstOrDefault();
+
+        //    if (patient == null)
+        //    {
+        //        return NotFound(); // Handle case where patient is not found
+        //    }
+        //    var now= DateTime.Now;
+        //    // Retrieve past appointments for the patient (appointments before today)
+        //    var appointments = _context.Appointments
+        //        .Where(a => a.PatientId == patientId &&
+        //        a.Date < DateOnly.FromDateTime(DateTime.Now.Date) ||
+        //        (a.Date == DateOnly.FromDateTime(now) &&
+        //            TimeSpan.TryParse(a.Slot.Split(" - ")[0], out TimeSpan startTime) &&
+        //            startTime < now.TimeOfDay)
+
+        //        )
+
+
+        //        // Filter out future appointments
+        //        .Include(a => a.Doctor) // Include doctor details
+        //        .OrderByDescending(a => a.Date)
+        //        .ToList();
+
+        //    // Pass patient name to the view
+        //    ViewData["PatientName"] = $"{patient.FirstName} {patient.LastName}";
+
+        //    return View(appointments);
+        //}
+
         public IActionResult HistoryForPatient(string patientId)
         {
             // Retrieve patient information
@@ -83,10 +118,18 @@ namespace Hospital.Controllers
                 return NotFound(); // Handle case where patient is not found
             }
 
-            // Retrieve past appointments for the patient (appointments before today)
+            // Get current date and time
+            var now = DateTime.Now;
+
+            // Retrieve past appointments for the patient (appointments before now)
             var appointments = _context.Appointments
-                .Where(a => a.PatientId == patientId && a.Date < DateOnly.FromDateTime(DateTime.Now.Date)) // Filter out future appointments
+                .Where(a => a.PatientId == patientId)
                 .Include(a => a.Doctor) // Include doctor details
+                .ToList() // Retrieve all appointments for the patient into memory
+                .Where(a => a.Date < DateOnly.FromDateTime(now) ||
+                            (a.Date == DateOnly.FromDateTime(now) &&
+                            TimeSpan.TryParse(a.Slot.Split(" - ")[0], out TimeSpan startTime) &&
+                            startTime < now.TimeOfDay)) // Filter out future appointments in memory
                 .OrderByDescending(a => a.Date)
                 .ToList();
 
@@ -96,9 +139,37 @@ namespace Hospital.Controllers
             return View(appointments);
         }
 
+
         #endregion
 
         #region UpcomingAppointmentsForPatient
+        [HttpGet]
+        //public IActionResult UpcomingAppointmentsForPatient(string patientId)
+        //{
+        //    // Retrieve patient information
+        //    var patient = _context.Patients
+        //        .Where(p => p.Id == patientId)
+        //        .Select(p => new { p.FirstName, p.LastName })
+        //        .FirstOrDefault();
+
+        //    if (patient == null)
+        //    {
+        //        return NotFound(); // Handle case where patient is not found
+        //    }
+
+        //    // Retrieve upcoming appointments for the patient
+        //    var appointments = _context.Appointments
+        //        .Where(a => a.PatientId == patientId && a.Date >= DateOnly.FromDateTime(DateTime.Now.Date)) // Show only future appointments
+        //        .Include(a => a.Doctor) // Include doctor details
+        //        .OrderBy(a => a.Date)
+        //        .ToList();
+
+        //    // Pass patient name to the view
+        //    ViewData["PatientName"] = $"{patient.FirstName} {patient.LastName}";
+
+        //    return View(appointments);
+        //}
+
         [HttpGet]
         public IActionResult UpcomingAppointmentsForPatient(string patientId)
         {
@@ -113,10 +184,18 @@ namespace Hospital.Controllers
                 return NotFound(); // Handle case where patient is not found
             }
 
+            // Get current date and time
+            var now = DateTime.Now;
+
             // Retrieve upcoming appointments for the patient
             var appointments = _context.Appointments
-                .Where(a => a.PatientId == patientId && a.Date >= DateOnly.FromDateTime(DateTime.Now.Date)) // Show only future appointments
+                .Where(a => a.PatientId == patientId)
                 .Include(a => a.Doctor) // Include doctor details
+                .ToList() // Retrieve all appointments for the patient into memory
+                .Where(a => a.Date > DateOnly.FromDateTime(now) ||
+                            (a.Date == DateOnly.FromDateTime(now) &&
+                            TimeSpan.TryParse(a.Slot.Split(" - ")[0], out TimeSpan startTime) &&
+                            startTime > now.TimeOfDay)) // Filter for upcoming appointments in memory
                 .OrderBy(a => a.Date)
                 .ToList();
 
@@ -126,11 +205,38 @@ namespace Hospital.Controllers
             return View(appointments);
         }
 
+
         #endregion
 
         #region HistoryForDoctor
         // GET: Appointment/History/Doctor/{doctorId}
         [HttpGet]
+        //public IActionResult HistoryForDoctor(string doctorId)
+        //{
+        //    // Retrieve doctor information
+        //    var doctor = _context.Doctors
+        //        .Where(d => d.Id == doctorId)
+        //        .Select(d => new { d.FirstName, d.LastName })
+        //        .FirstOrDefault();
+
+        //    if (doctor == null)
+        //    {
+        //        return NotFound(); // Handle case where doctor is not found
+        //    }
+
+        //    // Retrieve appointments for the doctor that are before today
+        //    var appointments = _context.Appointments
+        //        .Where(a => a.DoctorId == doctorId && a.Date < DateOnly.FromDateTime(DateTime.Now.Date)) // Show only past appointments
+        //        .Include(a => a.Patient) // Include patient details
+        //        .OrderByDescending(a => a.Date)
+        //        .ToList();
+
+        //    // Pass doctor name to the view
+        //    ViewData["DoctorName"] = $"{doctor.FirstName} {doctor.LastName}";
+
+        //    return View(appointments);
+        //}
+
         public IActionResult HistoryForDoctor(string doctorId)
         {
             // Retrieve doctor information
@@ -144,10 +250,18 @@ namespace Hospital.Controllers
                 return NotFound(); // Handle case where doctor is not found
             }
 
-            // Retrieve appointments for the doctor that are before today
+            // Get current date and time
+            var now = DateTime.Now;
+
+            // Retrieve past appointments for the doctor (appointments before now)
             var appointments = _context.Appointments
-                .Where(a => a.DoctorId == doctorId && a.Date < DateOnly.FromDateTime(DateTime.Now.Date)) // Show only past appointments
+                .Where(a => a.DoctorId == doctorId)
                 .Include(a => a.Patient) // Include patient details
+                .ToList() // Retrieve all appointments for the doctor into memory
+                .Where(a => a.Date < DateOnly.FromDateTime(now) ||
+                            (a.Date == DateOnly.FromDateTime(now) &&
+                            TimeSpan.TryParse(a.Slot.Split(" - ")[0], out TimeSpan startTime) &&
+                            startTime < now.TimeOfDay)) // Filter out future appointments in memory
                 .OrderByDescending(a => a.Date)
                 .ToList();
 
@@ -157,6 +271,7 @@ namespace Hospital.Controllers
             return View(appointments);
         }
 
+
         #endregion
 
 
@@ -165,9 +280,34 @@ namespace Hospital.Controllers
 
         #region UpcomingAppointmentsForDoctor
         [HttpGet]
-        public IActionResult UpcomingAppointmentsForDoctor([Bind("Id")] string doctorId)
+        //public IActionResult UpcomingAppointmentsForDoctor([Bind("Id")] string doctorId)
+        //{
+        //    // Retrieve doctor information
+        //    var doctor = _context.Doctors
+        //        .Where(d => d.Id == doctorId)
+        //        .Select(d => new { d.FirstName, d.LastName })
+        //        .FirstOrDefault();
+
+        //    if (doctor == null)
+        //    {
+        //        return NotFound(); // Handle case where doctor is not found
+        //    }
+
+        //    // Retrieve upcoming appointments for the doctor
+        //    var appointments = _context.Appointments
+        //        .Where(a => a.DoctorId == doctorId && a.Date >= DateOnly.FromDateTime(DateTime.Now.Date)) // Show only future appointments
+        //        .Include(a => a.Patient) // Include patient details
+        //        .OrderBy(a => a.Date)
+        //        .ToList();
+
+        //    // Pass doctor name to the view
+        //    ViewData["DoctorName"] = $"{doctor.FirstName} {doctor.LastName}";
+
+        //    return View(appointments);
+        //}
+
+        public IActionResult UpcomingAppointmentsForDoctor(string doctorId)
         {
-            // Retrieve doctor information
             var doctor = _context.Doctors
                 .Where(d => d.Id == doctorId)
                 .Select(d => new { d.FirstName, d.LastName })
@@ -178,15 +318,24 @@ namespace Hospital.Controllers
                 return NotFound(); // Handle case where doctor is not found
             }
 
-            // Retrieve upcoming appointments for the doctor
+            // Get current date and time
+            var now = DateTime.Now;
+
+            // Retrieve upcoming appointments for the patient
             var appointments = _context.Appointments
-                .Where(a => a.DoctorId == doctorId && a.Date >= DateOnly.FromDateTime(DateTime.Now.Date)) // Show only future appointments
-                .Include(a => a.Patient) // Include patient details
+                .Where(a => a.DoctorId == doctorId)
+                .Include(a => a.Patient) // Include doctor details
+                .ToList() // Retrieve all appointments for the patient into memory
+                .Where(a => a.Date > DateOnly.FromDateTime(now) ||
+                            (a.Date == DateOnly.FromDateTime(now) &&
+                            TimeSpan.TryParse(a.Slot.Split(" - ")[0], out TimeSpan startTime) &&
+                            startTime > now.TimeOfDay)) // Filter for upcoming appointments in memory
                 .OrderBy(a => a.Date)
                 .ToList();
 
-            // Pass doctor name to the view
+            // Pass docotr name to the view
             ViewData["DoctorName"] = $"{doctor.FirstName} {doctor.LastName}";
+          
 
             return View(appointments);
         }
@@ -233,7 +382,8 @@ namespace Hospital.Controllers
             // Loop to generate time slots
             for (var time = startTime; time < endTime; time = time.Add(slotDuration))
             {
-                string slot = $"{time.Hour:D2}:{time.Minute:D2} - {(time.Add(slotDuration).Hour):D2}:{(time.Add(slotDuration).Minute):D2}";
+                //string slot = $"{time.Hour:D2}:{time.Minute:D2} - {(time.Add(slotDuration).Hour):D2}:{(time.Add(slotDuration).Minute):D2}";
+                string slot = $"{time.ToString("hh:mm tt")} - {time.Add(slotDuration).ToString("hh:mm tt")}";
                 availableSlots.Add(slot);
             }
 
